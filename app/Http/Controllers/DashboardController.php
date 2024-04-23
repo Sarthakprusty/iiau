@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $request->session()->put('month', $month);
         $request->session()->put('year', $year);
         $whereClause = [
-            ['created_by',$user->id],
+            ['section_id',$user->section_id],
             ['month',$request->session()->get('month')?$request->session()->get('month'):date('m')],
             ['year',$request->session()->get('year')?$request->session()->get('year'):date('Y')],
             ['deleted_at',null]
@@ -59,7 +59,7 @@ class DashboardController extends Controller
             ->select(DB::raw($selectString))
             ->where($whereClause)
             ->get();
-        $uniform = DB::table('uniform')
+        $uniform = DB::table('uniforms')
             ->select(DB::raw($selectString))
             ->where($whereClause)
             ->get();
@@ -97,7 +97,7 @@ class DashboardController extends Controller
                 'cnt'=>$pending15[0]->cnt,
                 'last_updated'=>date_format(date_create($pending15[0]->last_updated),'d/m/Y H:i')
             ],
-            'uniform'=>[
+            'uniforms'=>[
                 'desc'=>'Uniform Status',
                 'cnt'=>$uniform[0]->cnt,
                 'last_updated'=>date_format(date_create($uniform[0]->last_updated),'d/m/Y H:i')

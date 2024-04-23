@@ -40,5 +40,35 @@ class DatabaseSeeder extends Seeder
             'username'=>'establishment',
             'section_id'=>4
         ]);
+        User::factory()->create([
+            'name' => 'Central Registry',
+            'email' => 'cr@rb.nic.in',
+            'username'=>'cr',
+            'section_id'=>5
+        ]);
+        User::factory()->create([
+            'name' => 'Public 1',
+            'email' => 'p1@rb.nic.in',
+            'username'=>'p1',
+            'section_id'=>6
+        ]);
+        User::factory()->create([
+            'name' => 'Public 2',
+            'email' => 'p2@rb.nic.in',
+            'username'=>'p2',
+            'section_id'=>7
+        ]);
+        User::factory()->create([
+            'name' => 'RTI',
+            'email' => 'rti@rb.nic.in',
+            'username'=>'rti',
+            'section_id'=>8
+        ]);
+        User::factory()->create([
+            'name' => 'Household',
+            'email' => 'household@rb.nic.in',
+            'username'=>'household',
+            'section_id'=>9
+        ]);
     }
 }

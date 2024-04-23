@@ -10,4 +10,8 @@ class Reference extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

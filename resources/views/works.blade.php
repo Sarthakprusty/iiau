@@ -79,7 +79,7 @@
                     <td>{{$work->pending_3}}</td>
                     @if(session('report_submitted')!=1)
                         <td>
-                            <form action="/works/{{$bill->id}}" method="post">
+                            <form action="/works/{{$work->id}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-block btn-danger">DELETE</button>

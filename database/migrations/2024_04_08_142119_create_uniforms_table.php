@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('description')->nullable(false);
             $table->string('status')->nullable(false);
             $table->date('cut_off_date')->nullable(true);
+            $table->integer('created_by')->nullable(false);
+
             $table->timestamps();
             $table->softDeletes();
         });

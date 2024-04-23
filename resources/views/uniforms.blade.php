@@ -1,0 +1,81 @@
+@extends('layout.main')
+
+
+@section('title', 'Ubiforms')
+
+
+
+@section('content')
+<div class="container-fluid">
+    <h2>
+        Report of Disposal of Work
+    </h2>
+    @if(session('report_submitted')!=1)
+    <form method="post" action="/uniforms">
+        @csrf
+        <div class="card table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    {{--<th>Sl.</th>--}}
+                    <th>Description</th>
+                    <th>CutOff Date</th>
+                    <th>Status</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr>
+                    {{--<td>1.</td>--}}
+                    <td><input class="form-control" type="text" name="record[0][description]" /></td>
+                    <td><input class="form-control" type="date" name="record[0][cut_off_date]" /></td>
+                    <td><input class="form-control" type="text" name="record[0][status]" /></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="card-footer">
+                <button class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </form>
+    @endif
+    <div class="card table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Sl.</th>
+                <th>Description</th>
+                <th>CutOff Date</th>
+                <th>Status</th>
+                @if(session('report_submitted')!=1)
+                    <th>Action</th>
+                @endif
+            </tr>
+
+            </thead>
+            <tbody>
+            @foreach ($uniforms as $uniform)
+                <tr>
+                    <td>{{$loop->index + 1}}.</td>
+                    <td>{{$uniform->description}}</td>
+                    <td>{{$uniform->cut_off_date}}</td>
+                    <td>{{$uniform->status}}</td>
+                    @if(session('report_submitted')!=1)
+                        <td>
+                            <form action="/uniforms/{{$uniform->id}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-block btn-danger">DELETE</button>
+                            </form>
+
+                        </td>
+                    @endif
+                </tr>
+            @endforeach
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+@endsection

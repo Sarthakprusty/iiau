@@ -425,7 +425,7 @@ nav{
 .main-body{
 /*background-image:  linear-gradient(to bottom right, #de9f57,transparent), url('images/R.png');#de9f57#de8f57#6094da*/
 
-    background-image: linear-gradient(to bottom right, #de9f57, transparent), url('public/storage/R.png');
+    background-image: linear-gradient(to bottom right, #de9f57, transparent), url( '/storage/R.png' );
     background-size: auto,64vh;
     background-position: center,left bottom ;
     background-repeat: no-repeat;

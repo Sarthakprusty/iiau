@@ -9,13 +9,16 @@
 <body>
 @include('layout.header')
 
-<div style="background-image: url('assets/images/Untitled10_20240103115745.png');
+<div style="
+    /*background-image: url('storage/Untitled10_20240103115745.png');*/
   background-size: 80vh;
   background-position: right top;
   background-repeat: no-repeat;
   position: relative;
   background-attachment: fixed;
-  min-height: 100vh;" class="mat-typography">
+  min-height: 100vh;
+ "
+     class="mat-typography">
 
     <div class="main-body">
         <div class="container-sm">

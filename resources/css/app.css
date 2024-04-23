@@ -78,11 +78,11 @@ nav{
 
 .main-body {
     position: relative;
-//min-height: 100vh;
-//margin-top: 50px;
-//margin-bottom:50px;
-//background-color: #dbcebb;
-//backgound-image: url('assets/images/pexels-henry-&-co-1939485.jpg');
+/*min-height: 100vh;*/
+/*margin-top: 50px;*/
+/*margin-bottom:50px;*/
+/*background-color: #dbcebb;*/
+/*backgound-image: url('assets/images/pexels-henry-&-co-1939485.jpg');*/
 
     min-height: 100vh;
     display: flex;
@@ -360,14 +360,14 @@ a.star {
     box-shadow: 2px 2px 0.2px rgba(0, 0, 0, 0.7);
     transform: scale(1.05);
     transition: transform 0.1s ease, box-shadow 0.1s ease;
-//background: linear-gradient(to top left, #e3e2e2,white);
+/*background: linear-gradient(to top left, #e3e2e2,white);*/
 }
 
 .enlarge-on-hover.clicked  {
     box-shadow: none;
     transform: scale(0.9);
-//transition: transform 0.3s ease, box-shadow 0.3s ease;
-//background: linear-gradient(to top left, #e3e2e2,white);
+/*transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+/*background: linear-gradient(to top left, #e3e2e2,white);*/
 }
 
 
@@ -403,17 +403,17 @@ nav{
 
 }
 .enlarge-hover:hover {
-//box-shadow: 2px 2px 0.2px rgba(0, 0, 0, 0.7);
-//transform: scale(1.05);
+/*box-shadow: 2px 2px 0.2px rgba(0, 0, 0, 0.7);*/
+/*transform: scale(1.05);*/
     transition: transform 0.1s ease, box-shadow 0.1s ease;
-//background: linear-gradient(to top left, #e3e2e2,white);
+/*background: linear-gradient(to top left, #e3e2e2,white);*/
 }
 
 .enlarge-hover.clicked  {
     box-shadow: none;
     transform: scale(0.9);
-//transition: transform 0.3s ease, box-shadow 0.3s ease;
-//background: linear-gradient(to top left, #e3e2e2,white);
+/*transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+/*background: linear-gradient(to top left, #e3e2e2,white);*/
 }
 .fontd {
     color: white;
@@ -423,18 +423,18 @@ nav{
 }
 
 .main-body{
-//background-image:  linear-gradient(to bottom right, #de9f57,transparent), url('images/R (1).png');#de9f57#de8f57#6094da
+/*background-image:  linear-gradient(to bottom right, #de9f57,transparent), url('images/R.png');#de9f57#de8f57#6094da*/
 
-    background-image:  linear-gradient(to bottom right,#de9f57,transparent), url('images/R (1).png');
+    background-image: linear-gradient(to bottom right, #de9f57, transparent), url('public/storage/R.png');
     background-size: auto,64vh;
     background-position: center,left bottom ;
     background-repeat: no-repeat;
     overflow-x: hidden;
     overflow-y: hidden;
-//background-image:  linear-gradient(to bottom right, lightgrey,transparent), url('https://wallpapercave.com/wp/wp6515991.jpg');
-//background-size: auto,cover;
-//background-position: center,center ;
-//background-repeat: no-repeat;
+/*background-image:  linear-gradient(to bottom right, lightgrey,transparent), url('https://wallpapercave.com/wp/wp6515991.jpg');*/
+/*background-size: auto,cover;*/
+/*background-position: center,center ;*/
+/*background-repeat: no-repeat;*/
 }
 
 
@@ -444,12 +444,12 @@ nav{
 }
 
 .title {
-    font-family: 'Times New Roman';
+    font-family: 'Times New Roman', serif;
     font-size: 70px;
 }
 
 .subtitle {
-    font-family: 'Times New Roman';
+    font-family: 'Times New Roman', serif;
     font-size: 40px;
 }
 

@@ -1,5 +1,5 @@
 <?php
-echo apache_get_version();
+phpinfo();
 die();
 use Illuminate\Http\Request;
 

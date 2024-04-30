@@ -10,7 +10,7 @@
         <h2>
             Dashboard
         </h2>
-        <form action="/ifa-dashboard" method="POST">
+        <form action="{{route('ifaDashboard.find')}}" method="POST">
 
             <div class="row">
 

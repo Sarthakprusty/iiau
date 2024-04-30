@@ -11,7 +11,7 @@
         Report of Disposal of Work
     </h2>
     @if(session('report_submitted')!=1)
-    <form method="post" action="/promotions">
+    <form method="post" action="{{ route('promotion.save') }}">
         @csrf
         <div class="card table-responsive">
             <table class="table table-bordered">
@@ -83,7 +83,7 @@
                     <td>{{$promotion->remarks}}</td>
                     @if(session('report_submitted')!=1)
                         <td>
-                            <form action="/promotions/{{$promotion->id}}" method="post">
+                            <form action="{{ route('promotion.dlt', [$promotion->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-block btn-danger">DELETE</button>

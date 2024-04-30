@@ -11,7 +11,7 @@
         Report of References pending with Central/State Government Offices
     </h2>
     @if(session('report_submitted')!=1)
-    <form method="post" action="/references">
+    <form method="post" action="{{ route('references.save') }}">
         @csrf
         <div class="card table-responsive">
             <table class="table table-bordered">
@@ -71,7 +71,7 @@
                     <td>{{$reference->remarks}}</td>
                     @if(session('report_submitted')!=1)
                         <td>
-                            <form action="/references/{{$reference->id}}" method="post">
+                            <form action="{{ route('references.dlt', [$reference->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-block btn-danger">DELETE</button>

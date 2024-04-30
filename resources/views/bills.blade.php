@@ -12,7 +12,7 @@
     </h2>
     @if(session('report_submitted')!=1)
 
-    <form method="post" action="/bills">
+    <form method="post" action="{{ route('bill.save') }}">
         @csrf
         <div class="card table-responsive">
             <table class="table table-bordered">
@@ -71,12 +71,11 @@
                     <td>{{$bill->remarks}}</td>
                     @if(session('report_submitted')!=1)
                     <td>
-                        <form action="/bills/{{$bill->id}}" method="post">
+                        <form action="{{ route('bill.dlt', [$bill->id]) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-block btn-danger">DELETE</button>
                         </form>
-
                     </td>
                     @endif
 

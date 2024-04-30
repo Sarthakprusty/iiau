@@ -77,7 +77,7 @@
                             Report submitted at {{session('report_submitted_at')}}
 
                         @else
-                            <form action="/report" method="post">
+                            <form action="{{route('report.save')}}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-danger float-md-end">Forward</button>
                             </form>

@@ -62,7 +62,7 @@
                 <a class="nav-link text-white text-bold ">|</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white text-bold fontd" href="/logout">
+                <a class="nav-link text-white text-bold fontd" href="{{route('logout')}}">
                     <i class="bi bi-box-arrow-right"></i> Logout
                 </a>
             </li>

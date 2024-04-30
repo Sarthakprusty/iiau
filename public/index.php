@@ -1,5 +1,6 @@
 <?php
-
+echo apache_get_version();
+die();
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));

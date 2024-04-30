@@ -10,7 +10,7 @@
     <h2>
         Dashboard
     </h2>
-    <form action="/work-report/dashboard" method="POST">
+    <form action="{{route('dashboard.find')}}" method="POST">
 
         <div class="row">
 

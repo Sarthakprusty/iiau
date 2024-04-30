@@ -2,21 +2,111 @@
     "queries": [
         {
             "sl": 3,
-            "query": "select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name",
+            "query": "select * from `sections` where `sections`.`id` = ? and `sections`.`deleted_at` is null limit 1",
             "bindings": [
+                "1"
+            ],
+            "final_query": "select * from `sections` where `sections`.`id` = 1 and `sections`.`deleted_at` is null limit 1",
+            "time": 0.96,
+            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:43",
+            "line": 43
+        },
+        {
+            "sl": 4,
+            "query": "select * from `bills` where (`section_id` = ? and `month` = ? and `year` = ?) and `bills`.`deleted_at` is null",
+            "bindings": [
+                "1",
                 "04",
                 "2024"
             ],
-            "final_query": "select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = 04 and w.year = 2024 group by s.section_name",
-            "time": 1.01,
-            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:98",
-            "line": 98
+            "final_query": "select * from `bills` where (`section_id` = 1 and `month` = 04 and `year` = 2024) and `bills`.`deleted_at` is null",
+            "time": 0.67,
+            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:49",
+            "line": 49
+        },
+        {
+            "sl": 5,
+            "query": "select * from `works` where (`section_id` = ? and `month` = ? and `year` = ?) and `works`.`deleted_at` is null",
+            "bindings": [
+                "1",
+                "04",
+                "2024"
+            ],
+            "final_query": "select * from `works` where (`section_id` = 1 and `month` = 04 and `year` = 2024) and `works`.`deleted_at` is null",
+            "time": 0.5,
+            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:50",
+            "line": 50
+        },
+        {
+            "sl": 6,
+            "query": "select * from `promotions` where (`section_id` = ? and `month` = ? and `year` = ?) and `promotions`.`deleted_at` is null",
+            "bindings": [
+                "1",
+                "04",
+                "2024"
+            ],
+            "final_query": "select * from `promotions` where (`section_id` = 1 and `month` = 04 and `year` = 2024) and `promotions`.`deleted_at` is null",
+            "time": 0.43,
+            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:51",
+            "line": 51
+        },
+        {
+            "sl": 7,
+            "query": "select * from `references` where (`section_id` = ? and `month` = ? and `year` = ?) and `references`.`deleted_at` is null",
+            "bindings": [
+                "1",
+                "04",
+                "2024"
+            ],
+            "final_query": "select * from `references` where (`section_id` = 1 and `month` = 04 and `year` = 2024) and `references`.`deleted_at` is null",
+            "time": 0.42,
+            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:52",
+            "line": 52
+        },
+        {
+            "sl": 8,
+            "query": "select * from `reports` where (`section_id` = ? and `month` = ? and `year` = ?) and `reports`.`deleted_at` is null",
+            "bindings": [
+                "1",
+                "04",
+                "2024"
+            ],
+            "final_query": "select * from `reports` where (`section_id` = 1 and `month` = 04 and `year` = 2024) and `reports`.`deleted_at` is null",
+            "time": 0.38,
+            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:53",
+            "line": 53
+        },
+        {
+            "sl": 9,
+            "query": "select * from `uniforms` where (`section_id` = ? and `month` = ? and `year` = ?) and `uniforms`.`deleted_at` is null",
+            "bindings": [
+                "1",
+                "04",
+                "2024"
+            ],
+            "final_query": "select * from `uniforms` where (`section_id` = 1 and `month` = 04 and `year` = 2024) and `uniforms`.`deleted_at` is null",
+            "time": 0.43,
+            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:54",
+            "line": 54
+        },
+        {
+            "sl": 10,
+            "query": "select * from `pending_15` where (`section_id` = ? and `month` = ? and `year` = ?) and `pending_15`.`deleted_at` is null",
+            "bindings": [
+                "1",
+                "04",
+                "2024"
+            ],
+            "final_query": "select * from `pending_15` where (`section_id` = 1 and `month` = 04 and `year` = 2024) and `pending_15`.`deleted_at` is null",
+            "time": 0.41,
+            "file": "\/Users\/snehasil\/Work\/IIAU_report\/iiau\/app\/Http\/Controllers\/ReportController.php:55",
+            "line": 55
         }
     ],
     "meta": {
-        "url": "http:\/\/127.0.0.1:8000\/report\/2024\/04\/consolidated",
+        "url": "http:\/\/127.0.0.1:8000\/report\/2024\/04\/1",
         "method": "GET",
-        "total_query": 4,
-        "total_time": 6.4399999999999995
+        "total_query": 11,
+        "total_time": 13.87
     }
 }

@@ -68,7 +68,7 @@ class ReportController extends Controller
                'promotions'=>[
                    'desc'=>'Promotions, Retirement etc',
                    'data'=>$promotions,
-                   'last_updated'=>date_format(date_create($promotions[0]->last_updated),'d/m/Y H:i')
+                   'last_updated'=>sizeof($promotions)>0?date_format(date_create($promotions[0]->last_updated),'d/m/Y H:i'):''
                ],
                'references'=>[
                    'desc'=>'References',

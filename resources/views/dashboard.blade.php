@@ -10,7 +10,7 @@
     <h2>
         Dashboard
     </h2>
-    <form action="{{route('dashboard')}}" method="POST">
+    <form action="/work-report/dashboard" method="POST">
 
         <div class="row">
 

@@ -24,7 +24,7 @@ Route::get('/pending15',[Pending15Controller::class,'index'])->middleware('auth'
 Route::post('/pending15',[Pending15Controller::class,'add'])->middleware('auth');
 Route::delete('/pending15/{id}',[Pending15Controller::class,'delete'])->middleware('auth');
 Route::get('/dashboard',[DashboardController::class,'get'])->middleware('auth');
-Route::post('/dashboard',[DashboardController::class,'find'])->middleware('auth');
+Route::post('/dashboard',[DashboardController::class,'find'])->middleware('auth')->name('dashboard');;
 Route::get('/ifa-dashboard',[IFADashboardController::class,'get'])->middleware('auth');
 Route::post('/ifa-dashboard',[IFADashboardController::class,'find'])->middleware('auth');
 Route::post('/report',[ReportController::class,'save'])->middleware('auth');

@@ -27,9 +27,9 @@
                 <tbody>
                 <tr>
                     {{--<td>1.</td>--}}
-                    <td><input class="form-control" type="text" name="record[0][description]" /></td>
+                    <td><input class="form-control" type="text" name="record[0][description]" required/></td>
                     <td><input class="form-control" type="date" name="record[0][cut_off_date]" /></td>
-                    <td><input class="form-control" type="text" name="record[0][status]" /></td>
+                    <td><input class="form-control" type="text" name="record[0][status]" required /></td>
                 </tr>
                 </tbody>
             </table>

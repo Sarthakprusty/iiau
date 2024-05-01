@@ -31,9 +31,9 @@ class PromotionController extends Controller
             $work->month = $request->session()->get('month')?$request->session()->get('month'):date('m');
             $work->year = $request->session()->get('year')?$request->session()->get('year'):date('Y');
             $work->desc = $r['desc'];
-            $work->due = $r['due'];
-            $work->settled = $r['settled'];
-            $work->variation = $r['variation'];
+            $work->due = isset($r['due']) ? $r['due'] : 0;
+            $work->settled = isset($r['settled']) ? $r['settled'] : 0;
+            $work->variation = isset($r['variation']) ? $r['variation'] : 0;
             $work->remarks = $r['remarks'];
             $work->created_by = $user->id;
             $work->save();
@@ -42,4 +42,14 @@ class PromotionController extends Controller
         return redirect('/promotions');
 
     }
+    function delete($id){
+        $record = Promotion::find($id);
+        $user = Auth::user();
+        if($record->created_by == $user->id){
+            $record->delete();
+            return back()->with('success','Bill deleted successfully.');
+        }
+        return back()->with('error','Unauthorised Access.');
+    }
+
 }

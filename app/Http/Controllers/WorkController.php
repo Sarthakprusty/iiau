@@ -44,6 +44,14 @@ class WorkController extends Controller
 
     }
 
-
+    function delete($id){
+        $record = Work::find($id);
+        $user = Auth::user();
+        if($record->created_by == $user->id){
+            $record->delete();
+            return back()->with('success','Bill deleted successfully.');
+        }
+        return back()->with('error','Unauthorised Access.');
+    }
 
 }

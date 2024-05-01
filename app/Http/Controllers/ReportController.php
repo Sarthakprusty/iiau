@@ -104,32 +104,50 @@ class ReportController extends Controller
            $works =        DB::select('select section_name, ANY_VALUE(`desc`)  `desc`, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
            $promotions =   DB::select('select section_name, ANY_VALUE(`desc`)  `desc`,ANY_VALUE(`remarks`) `remarks`, sum(due) due, sum(settled) settled, sum(variation) variation from sections s join promotions  w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
            $bills =        DB::select('select section_name, ANY_VALUE(`remarks`) `remarks`,sum(rec) rec, sum(settled) settled, sum(prev_due) prev_due, sum(bal) bal from sections s join bills w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
-           $references = DB::select('SELECT 
-                                                            s.section_name, 
-                                                            w.`desc`,
-                                                            w.`remarks`,
-                                                            w.`date_of_comm`,
-                                                            w.`date_of_reply`,
-                                                            w.`date_of_action` 
-                                                        FROM 
-                                                            sections s 
-                                                        JOIN 
-                                                            `references` w ON s.id = w.section_id 
-                                                        JOIN 
-                                                            reports r ON s.id = r.section_id AND r.month = w.month AND r.year = w.year 
-                                                        WHERE  
-                                                            w.month = ? 
-                                                            AND w.year = ? 
-                                                            AND w.deleted_at IS NULL 
-                                                            AND s.deleted_at IS NULL 
-                                                            AND r.deleted_at IS NULL 
-                                                        GROUP BY 
-                                                            s.section_name, 
-                                                            w.`desc`, 
-                                                            w.`remarks`, 
-                                                            w.`date_of_comm`, 
-                                                            w.`date_of_reply`, 
-                                                            w.`date_of_action`', [$month, $year]);
+//           $references = DB::select('SELECT
+//                                                            s.section_name,
+//                                                            w.`desc`,
+//                                                            w.`remarks`,
+//                                                            w.`date_of_comm`,
+//                                                            w.`date_of_reply`,
+//                                                            w.`date_of_action`
+//                                                        FROM
+//                                                            sections s
+//                                                        JOIN
+//                                                            `references` w ON s.id = w.section_id
+//                                                        JOIN
+//                                                            reports r ON s.id = r.section_id AND r.month = w.month AND r.year = w.year
+//                                                        WHERE
+//                                                            w.month = ?
+//                                                            AND w.year = ?
+//                                                            AND w.deleted_at IS NULL
+//                                                            AND s.deleted_at IS NULL
+//                                                            AND r.deleted_at IS NULL
+//                                                        GROUP BY
+//                                                            s.section_name,
+//                                                            w.`desc`,
+//                                                            w.`remarks`,
+//                                                            w.`date_of_comm`,
+//                                                            w.`date_of_reply`,
+//                                                            w.`date_of_action`', [$month, $year]);
+
+           $references = DB::table('sections')
+               ->select('w.desc', 'w.remarks', 'w.date_of_comm','w.date_of_reply', 'w.date_of_action', 'sections.section_name')
+               ->join('references as w', function ($join) {
+                   $join->on('sections.id', '=', 'w.section_id')
+                       ->whereNull('w.deleted_at');
+               })
+               ->join('reports as r', function ($join) use ($month, $year) {
+                   $join->on('sections.id', '=', 'r.section_id')
+                       ->where('r.month', '=', $month)
+                       ->where('r.year', '=', $year)
+                       ->whereNull('r.deleted_at');
+               })
+               ->where('w.month', '=', $month)
+               ->where('w.year', '=', $year)
+               ->whereNull('sections.deleted_at')
+               ->groupBy('w.desc', 'w.remarks', 'w.date_of_comm','w.date_of_reply', 'w.date_of_action', 'sections.section_name')
+               ->get();
 
              $pending15 = DB::table('sections')
                ->select('w.desc', 'w.reason', 'w.action', 'sections.section_name')

@@ -30,9 +30,9 @@
                         <tr>
                             {{--<td>1.</td>--}}
 
-                            <td><input class="form-control" type="text" name="record[0][desc]" /></td>
-                            <td><textarea class="form-control" type="number" name="record[0][reason]" ></textarea></td>
-                            <td><textarea class="form-control" type="number" name="record[0][action]" ></textarea></td>
+                            <td><input class="form-control" type="text" name="record[0][desc]" required /></td>
+                            <td><textarea class="form-control" type="number" name="record[0][reason]" required></textarea></td>
+                            <td><textarea class="form-control" type="number" name="record[0][action]" required></textarea></td>
                         </tr>
                         </tbody>
                     </table>

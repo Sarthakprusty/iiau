@@ -25,7 +25,7 @@ Route::delete('/promotions/{id}',[PromotionController::class,'delete'])->middlew
 Route::get('/pending15',[Pending15Controller::class,'index'])->middleware('auth')->name('pending15');;
 Route::post('/pending15',[Pending15Controller::class,'add'])->middleware('auth')->name('pending15.save');
 Route::delete('/pending15/{id}',[Pending15Controller::class,'delete'])->middleware('auth')->name('pending15.dlt');
-Route::get('/dashboard',[DashboardController::class,'get'])->middleware('auth');
+Route::get('/dashboard',[DashboardController::class,'get'])->middleware('auth')->name('dashboard');
 Route::post('/dashboard',[DashboardController::class,'find'])->middleware('auth')->name('dashboard.find');
 Route::get('/ifa-dashboard',[IFADashboardController::class,'get'])->middleware('auth')->name('ifa-dashboard');;
 Route::post('/ifa-dashboard',[IFADashboardController::class,'find'])->middleware('auth')->name('ifaDashboard.find');

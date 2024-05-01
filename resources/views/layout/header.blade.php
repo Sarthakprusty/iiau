@@ -16,7 +16,7 @@
                 <div class="col-2 col-sm-2 col-md-2 col-lg-2 logo-sec">
                 </div>
                 <div class="col-2 col-sm-2 col-md-2 col-lg-2 RBbuilding-sec wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
-                    <a class="RB-building enlarge-hover " href='/dashboard' >
+                    <a class="RB-building enlarge-hover " href='{{route('dashboard')}}' >
                         <img src="{{ asset('storage/img.png') }}" alt="emblem" style="margin-left: 20%">
                     </a>
                 </div>
@@ -56,7 +56,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link text-white text-bold fontd" href='/dashboard'>Home </a>
+                <a class="nav-link text-white text-bold fontd" href='{{route('dashboard')}}'>Home </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white text-bold ">|</a>

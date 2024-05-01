@@ -96,12 +96,18 @@ class ReportController extends Controller
                ['year',$year]
            ];
            $works =   DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+           $bills =   DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+           $promotions =   DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+           $references =   DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+           $pending15 =   DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+           $uniform =   DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+
            $data = [
                'works'=>[
                    'desc'=>'Work Report',
                    'data'=>$works
                ],
-               /*'bills'=>[
+               'bills'=>[
                    'desc'=>'Bills',
                    'data'=>$bills,
                    'last_updated'=>date_format(date_create($bills[0]->last_updated),'d/m/Y H:i')
@@ -126,7 +132,7 @@ class ReportController extends Controller
                    'desc'=>'Uniform Status',
                    'data'=>$uniform,
                    'last_updated'=>date_format(date_create($uniform[0]->last_updated),'d/m/Y H:i')
-               ],*/
+               ],
 
            ];
            return view('reports.consolidated',['data'=>$data, 'month'=>$monthName]);

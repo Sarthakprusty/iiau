@@ -22,7 +22,7 @@
                     <th>BF</th>
                     <th>Recd.</th>
                     <th>Disposed</th>
-                    <th>Balance</th>
+                    <!--<th>Balance</th>-->
                     <th>Pending >1 mnth</th>
                     <th>Pending >3 mnths</th>
                 </tr>
@@ -35,7 +35,7 @@
                     <td><input class="form-control" type="number" name="record[0][bf]" /></td>
                     <td><input class="form-control" type="number" name="record[0][recd]" /></td>
                     <td><input class="form-control" type="number" name="record[0][disp]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][bal]" /></td>
+                    <!--<td><input class="form-control" type="number" name="record[0][bal]" /></td>-->
                     <td><input class="form-control" type="number" name="record[0][p1m]" /></td>
                     <td><input class="form-control" type="number" name="record[0][p3m]" /></td>
 

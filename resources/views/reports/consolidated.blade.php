@@ -73,11 +73,11 @@
             <tr>
                 <th>Sl.</th>
                 <th>Name</th>
-                <th>Description</th>
+{{--                <th>Description</th>--}}
                 <th>Due</th>
                 <th>Settled</th>
                 <th>Variation</th>
-                <th>Remarks</th>
+{{--                <th>Remarks</th>--}}
             </tr>
             </thead>
             <tbody>
@@ -90,11 +90,11 @@
                 <tr>
                     <td class="number">{{$loop->index + 1}}</td>
                     <td class="text" style="text-align: center">{{$promotions->section_name}}</td>
-                    <td class="text" style="text-align: center">{{$promotions->desc}}</td>
+{{--                    <td class="text" style="text-align: center">{{$promotions->desc}}</td>--}}
                     <td class="number">{{$promotions->due}}</td>
                     <td class="number">{{$promotions->settled}}</td>
                     <td class="number">{{$promotions->variation}}</td>
-                    <td class="text" style="text-align: center">{{$promotions->remarks}}</td>
+{{--                    <td class="text" style="text-align: center">{{$promotions->remarks}}</td>--}}
                 </tr>
                 @php
                     $t_due += $promotions->due;
@@ -106,7 +106,7 @@
             <tfoot>
             <tr>
                 <th colspan="2">Total</th>
-                <th colspan="1"></th>
+{{--                <th colspan="1"></th>--}}
                 <th>{{$t_due}}</th>
                 <th>{{$t_settled}}</th>
                 <th>{{$t_variation}}</th>
@@ -125,7 +125,7 @@
                 <th>Settled</th>
                 <th>Previous Due</th>
                 <th>Balance</th>
-                <th>Remarks<br/>
+{{--                <th>Remarks<br/>--}}
             </tr>
             </thead>
             <tbody>
@@ -143,7 +143,7 @@
                     <td class="number">{{$bills->settled}}</td>
                     <td class="number">{{$bills->prev_due}}</td>
                     <td class="number">{{$bills->bal}}</td>
-                    <td class="text" style="text-align: center">{{$bills->remarks}}</td>
+{{--                    <td class="text" style="text-align: center">{{$bills->remarks}}</td>--}}
                 </tr>
                 @php
                     $bill_rec += $bills->rec;

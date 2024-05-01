@@ -12,7 +12,7 @@
         </h2>
         @if(session('report_submitted')!=1)
 
-            <form method="post" action="/pending15">
+            <form method="post" action="{{ route('pending15.save') }}">
                 @csrf
                 <div class="card table-responsive">
                     <table class="table table-bordered">
@@ -30,9 +30,9 @@
                         <tr>
                             {{--<td>1.</td>--}}
 
-                            <td><input class="form-control" type="text" name="record[0][desc]" /></td>
-                            <td><textarea class="form-control" type="number" name="record[0][reason]" ></textarea></td>
-                            <td><textarea class="form-control" type="number" name="record[0][action]" ></textarea></td>
+                            <td><input class="form-control" type="text" name="record[0][desc]" required /></td>
+                            <td><textarea class="form-control" type="number" name="record[0][reason]" required></textarea></td>
+                            <td><textarea class="form-control" type="number" name="record[0][action]" required></textarea></td>
                         </tr>
                         </tbody>
                     </table>
@@ -67,7 +67,7 @@
                         <td>{{$p15->action}}</td>
                         @if(session('report_submitted')!=1)
                             <td>
-                                <form action="/pending15/{{$p15->id}}" method="post">
+                                <form action="{{ route('pending15.dlt', [$p15->id]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-block btn-danger">DELETE</button>

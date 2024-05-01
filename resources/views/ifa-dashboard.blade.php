@@ -10,7 +10,7 @@
         <h2>
             Dashboard
         </h2>
-        <form action="/ifa-dashboard" method="POST">
+        <form action="{{route('ifaDashboard.find')}}" method="POST">
 
             <div class="row">
 
@@ -55,7 +55,7 @@
                                     <td>{{$section->section_name}}</td>
                                     <td>
                                         @if(sizeof($section->reports))
-                                            <a href="/report/{{session('year')}}/{{session('month')}}/{{$section->id}}" class="btn btn-success">View Report</a><br/>
+                                            <a href="{{ route('section_report', [session('year'), session('month'), $section->id]) }}" class="btn btn-success">View Report</a><br/>
                                             {{date_format($section->reports[0]->created_at,'d/m/Y H:i:s')}}
                                         @else
                                             Not Submitted
@@ -66,7 +66,7 @@
                             </tbody>
                         </table>
                         <div class="card-footer">
-                            <a href="/report/{{session('year')}}/{{session('month')}}/consolidated" class="btn btn-primary">View Complete Report</a>
+                            <a href="{{ route('section_report', [session('year'), session('month'), 'consolidated']) }}" class="btn btn-primary">View Complete Report</a>
                         </div>
                     </div>
                 </div>

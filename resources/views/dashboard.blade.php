@@ -10,7 +10,7 @@
     <h2>
         Dashboard
     </h2>
-    <form action="/dashboard" method="POST">
+    <form action="{{route('dashboard.find')}}" method="POST">
 
         <div class="row">
 
@@ -27,8 +27,6 @@
                            </div>
                        </div>
                    </div>
-
-
                 </div>
 
         </div>
@@ -61,9 +59,9 @@
                                                 </div>
                                                 <div class="card-footer">
                                                     @if(session('report_submitted'))
-                                                        <a href="/{{$key}}" class="btn btn-primary float-md-end">View</a>
+                                                        <a href="{{ route($key) }}" class="btn btn-primary float-md-end">View</a>
                                                     @else
-                                                        <a href="/{{$key}}" class="btn btn-primary float-md-end">Update</a>
+                                                        <a href="{{ route($key) }}" class="btn btn-primary float-md-end">Update</a>
                                                     @endif
 
                                                 </div>
@@ -77,7 +75,7 @@
                             Report submitted at {{session('report_submitted_at')}}
 
                         @else
-                            <form action="/report" method="post">
+                            <form action="{{route('report.save')}}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-danger float-md-end">Forward</button>
                             </form>

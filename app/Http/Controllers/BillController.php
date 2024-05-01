@@ -29,9 +29,9 @@ class BillController extends Controller
             $bill->section_id = $user->section_id;
             $bill->month = $request->session()->get('month')?$request->session()->get('month'):date('m');
             $bill->year = $request->session()->get('year')?$request->session()->get('year'):date('Y');
-            $bill->rec = $r['rec'];
-            $bill->settled = $r['settled'];
-            $bill->prev_due = $r['prev_due'];
+            $bill->rec = isset($r['rec']) ? $r['rec'] : 0;
+            $bill->settled = isset($r['settled']) ? $r['settled'] : 0;
+            $bill->prev_due = isset($r['prev_due']) ? $r['prev_due'] : 0;
             $bill->bal = $r['rec']+$r['prev_due']-$r['settled'];
             $bill->remarks = $r['remarks'];
             $bill->created_by = $user->id;

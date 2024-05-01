@@ -11,7 +11,7 @@
         Report of Disposal of Work
     </h2>
     @if(session('report_submitted')!=1)
-    <form method="post" action="/uniforms">
+    <form method="post" action="{{ route('uniform.save') }}">
         @csrf
         <div class="card table-responsive">
             <table class="table table-bordered">
@@ -27,9 +27,9 @@
                 <tbody>
                 <tr>
                     {{--<td>1.</td>--}}
-                    <td><input class="form-control" type="text" name="record[0][description]" /></td>
+                    <td><input class="form-control" type="text" name="record[0][description]" required/></td>
                     <td><input class="form-control" type="date" name="record[0][cut_off_date]" /></td>
-                    <td><input class="form-control" type="text" name="record[0][status]" /></td>
+                    <td><input class="form-control" type="text" name="record[0][status]" required /></td>
                 </tr>
                 </tbody>
             </table>
@@ -62,7 +62,7 @@
                     <td>{{$uniform->status}}</td>
                     @if(session('report_submitted')!=1)
                         <td>
-                            <form action="/uniforms/{{$uniform->id}}" method="post">
+                            <form action="{{ route('uniform.dlt', [$uniform->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-block btn-danger">DELETE</button>

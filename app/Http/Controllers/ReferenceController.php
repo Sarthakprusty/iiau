@@ -43,4 +43,14 @@ class ReferenceController extends Controller
         return redirect('/references');
 
     }
+    function delete($id){
+        $record = Reference::find($id);
+        $user = Auth::user();
+        if($record->created_by == $user->id){
+            $record->delete();
+            return back()->with('success','Bill deleted successfully.');
+        }
+        return back()->with('error','Unauthorised Access.');
+    }
+
 }

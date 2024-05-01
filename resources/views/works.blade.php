@@ -11,7 +11,7 @@
         Report of Disposal of Work
     </h2>
     @if(session('report_submitted')!=1)
-    <form method="post" action="/works">
+    <form method="post" action="{{ route('work.save') }}">
         @csrf
         <div class="card table-responsive">
             <table class="table table-bordered">
@@ -22,7 +22,7 @@
                     <th>BF</th>
                     <th>Recd.</th>
                     <th>Disposed</th>
-                    <th>Balance</th>
+                    <!--<th>Balance</th>-->
                     <th>Pending >1 mnth</th>
                     <th>Pending >3 mnths</th>
                 </tr>
@@ -35,7 +35,7 @@
                     <td><input class="form-control" type="number" name="record[0][bf]" /></td>
                     <td><input class="form-control" type="number" name="record[0][recd]" /></td>
                     <td><input class="form-control" type="number" name="record[0][disp]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][bal]" /></td>
+                    <!--<td><input class="form-control" type="number" name="record[0][bal]" /></td>-->
                     <td><input class="form-control" type="number" name="record[0][p1m]" /></td>
                     <td><input class="form-control" type="number" name="record[0][p3m]" /></td>
 
@@ -79,7 +79,7 @@
                     <td>{{$work->pending_3}}</td>
                     @if(session('report_submitted')!=1)
                         <td>
-                            <form action="/works/{{$work->id}}" method="post">
+                            <form action="{{ route('work.dlt', [$work->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-block btn-danger">DELETE</button>

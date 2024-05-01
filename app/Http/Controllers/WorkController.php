@@ -30,12 +30,12 @@ class WorkController extends Controller
             $work->month = $request->session()->get('month')?$request->session()->get('month'):date('m');
             $work->year = $request->session()->get('year')?$request->session()->get('year'):date('Y');
             $work->desc = $r['desc'];
-            $work->brought_forward = $r['bf'];
-            $work->received = $r['recd'];
-            $work->disposed = $r['disp'];
-            $work->pending_1 = $r['p1m'];
-            $work->pending_3 = $r['p3m'];
-            $work->balance = $r['bal'];
+            $work->brought_forward = $r['bf']?$r['bf']:0;
+            $work->received = $r['recd']?$r['recd']:0;
+            $work->disposed = $r['disp']?$r['disp']:0;
+            $work->pending_1 = $r['p1m']?$r['p1m']:0;
+            $work->pending_3 = $r['p3m']?$r['p3m']:0;
+            $work->balance = $work->brought_forward+$work->received-$work->disposed;
             $work->created_by = $user->id;
             $work->save();
         }
@@ -44,6 +44,14 @@ class WorkController extends Controller
 
     }
 
-
+    function delete($id){
+        $record = Work::find($id);
+        $user = Auth::user();
+        if($record->created_by == $user->id){
+            $record->delete();
+            return back()->with('success','Bill deleted successfully.');
+        }
+        return back()->with('error','Unauthorised Access.');
+    }
 
 }

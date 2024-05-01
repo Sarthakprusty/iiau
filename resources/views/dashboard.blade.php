@@ -61,9 +61,9 @@
                                                 </div>
                                                 <div class="card-footer">
                                                     @if(session('report_submitted'))
-                                                        <a href="/{{$key}}" class="btn btn-primary float-md-end">View</a>
+                                                        <a href="{{ route($key) }}" class="btn btn-primary float-md-end">View</a>
                                                     @else
-                                                        <a href="/{{$key}}" class="btn btn-primary float-md-end">Update</a>
+                                                        <a href="{{ route($key) }}" class="btn btn-primary float-md-end">Update</a>
                                                     @endif
 
                                                 </div>

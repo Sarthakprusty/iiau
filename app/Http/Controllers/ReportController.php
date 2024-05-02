@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use App\Models\Other;
 use App\Models\Pending15;
 use App\Models\Promotion;
 use App\Models\Reference;
@@ -53,6 +54,7 @@ class ReportController extends Controller
            $reports = Report::where($whereClause)->get();
            $uniform = Uniform::where($whereClause)->get();
            $pending15 = Pending15::where($whereClause)->get();
+           $other = Other::where($whereClause)->get();
 
 //           $lastUpdatedBill = '';
 //           if ( $bills && !empty($bills) && $bills!==null ) {
@@ -90,6 +92,11 @@ class ReportController extends Controller
                    'desc'=>'Uniform Status',
                    'data'=>$uniform,
 //                   'last_updated'=>date_format(date_create($uniform[0]->last_updated),'d/m/Y H:i')
+               ],
+               'others'=>[
+                   'desc'=>'Other Status',
+                   'data'=>$other,
+//                   'last_updated'=>date_format(date_create($other[0]->last_updated),'d/m/Y H:i')
                ],
 
            ];
@@ -185,6 +192,24 @@ class ReportController extends Controller
                ->groupBy('w.description', 'w.status', 'w.cut_off_date', 'sections.section_name')
                ->get();
 
+           $other = DB::table('sections')
+               ->select('w.desc', 'w.title', 'sections.section_name')
+               ->join('others  as w', function ($join) {
+                   $join->on('sections.id', '=', 'w.section_id')
+                       ->whereNull('w.deleted_at');
+               })
+               ->join('reports as r', function ($join) use ($month, $year) {
+                   $join->on('sections.id', '=', 'r.section_id')
+                       ->where('r.month', '=', $month)
+                       ->where('r.year', '=', $year)
+                       ->whereNull('r.deleted_at');
+               })
+               ->where('w.month', '=', $month)
+               ->where('w.year', '=', $year)
+               ->whereNull('sections.deleted_at')
+               ->groupBy('w.desc', 'w.title', 'sections.section_name')
+               ->get();
+
 
            $data = [
                'works'=>[
@@ -215,6 +240,11 @@ class ReportController extends Controller
                    'desc'=>'Uniform Status',
                    'data'=>$uniform,
 //                   'last_updated'=>date_format(date_create($uniform[0]->last_updated),'d/m/Y H:i')
+               ],
+               'others'=>[
+                   'desc'=>'Other Status',
+                   'data'=>$other,
+//                   'last_updated'=>date_format(date_create($other[0]->last_updated),'d/m/Y H:i')
                ],
 
            ];

@@ -10,18 +10,18 @@
         <h2>
             Dashboard
         </h2>
-        <form action="{{route('ifaDashboard.find')}}" method="POST">
+        <form action="{{route('usDashboard.find')}}" method="POST">
 
             <div class="row">
 
                 <div class="col-md">
                     <div class="card">
                         <div class="card-header">
-                            Report for Month
+                            Report for Year
                         </div>
                         <div class="card-body">
                             @csrf
-                            <input type="month" id="report_month" name="report_month" class="form-control" value="{{session('year')}}-{{session('month')}}" />
+                            <input type="number" id="report_year" name="report_year" class="form-control" value="{{ session('year') }}" min="1900" max="9999" step="1">
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary float-md-end">FETCH</button>
                             </div>
@@ -93,9 +93,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="card-footer">
-                            <a href="{{ route('section_report', [session('year'), session('month'), 'consolidated']) }}" class="btn btn-primary">View Complete Report</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -103,4 +100,5 @@
         @endif
 
     </div>
+
 @endsection

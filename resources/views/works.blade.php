@@ -19,7 +19,7 @@
                 <tr>
                     {{--<th>Sl.</th>--}}
                     <th>Name</th>
-                    <th>BF</th>
+                    <th>Opening Balance</th>
                     <th>Recd.</th>
                     <th>Disposed</th>
                     <!--<th>Balance</th>-->
@@ -54,10 +54,10 @@
             <tr>
                 <th>Sl.</th>
                 <th>Name</th>
-                <th>BF</th>
+                <th>Opening Balance</th>
                 <th>Recd.</th>
                 <th>Disposed</th>
-                <th>Balance</th>
+                <th>Closing Balance</th>
                 <th>Pending >1 mnth</th>
                 <th>Pending >3 mnths</th>
                 @if(session('report_submitted')!=1)

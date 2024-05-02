@@ -3,6 +3,7 @@
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IFADashboardController;
+use App\Http\Controllers\OthersController;
 use App\Http\Controllers\Pending15Controller;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\ReportController;
@@ -25,6 +26,9 @@ Route::delete('/promotions/{id}',[PromotionController::class,'delete'])->middlew
 Route::get('/pending15',[Pending15Controller::class,'index'])->middleware('auth')->name('pending15');;
 Route::post('/pending15',[Pending15Controller::class,'add'])->middleware('auth')->name('pending15.save');
 Route::delete('/pending15/{id}',[Pending15Controller::class,'delete'])->middleware('auth')->name('pending15.dlt');
+Route::get('/Other',[OthersController::class,'index'])->middleware('auth')->name('others');;
+Route::post('/Other',[OthersController::class,'add'])->middleware('auth')->name('others.save');
+Route::delete('/Other/{id}',[OthersController::class,'delete'])->middleware('auth')->name('others.dlt');
 Route::get('/dashboard',[DashboardController::class,'get'])->middleware('auth')->name('dashboard');
 Route::post('/dashboard',[DashboardController::class,'find'])->middleware('auth')->name('dashboard.find');
 Route::get('/ifa-dashboard',[IFADashboardController::class,'get'])->middleware('auth')->name('ifa-dashboard');;

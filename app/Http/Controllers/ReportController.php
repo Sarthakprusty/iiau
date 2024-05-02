@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use App\Models\Other;
 use App\Models\Pending15;
 use App\Models\Promotion;
 use App\Models\Reference;
@@ -53,6 +54,7 @@ class ReportController extends Controller
            $reports = Report::where($whereClause)->get();
            $uniform = Uniform::where($whereClause)->get();
            $pending15 = Pending15::where($whereClause)->get();
+           $other = Other::where($whereClause)->get();
 
 //           $lastUpdatedBill = '';
 //           if ( $bills && !empty($bills) && $bills!==null ) {
@@ -91,6 +93,11 @@ class ReportController extends Controller
                    'data'=>$uniform,
 //                   'last_updated'=>date_format(date_create($uniform[0]->last_updated),'d/m/Y H:i')
                ],
+               'others'=>[
+                   'desc'=>'Other Status',
+                   'data'=>$other,
+//                   'last_updated'=>date_format(date_create($other[0]->last_updated),'d/m/Y H:i')
+               ],
 
            ];
 
@@ -101,36 +108,9 @@ class ReportController extends Controller
                ['month',$month],
                ['year',$year]
            ];
-           $works =        DB::select('select section_name, ANY_VALUE(`desc`)  `desc`, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
-           $promotions =   DB::select('select section_name, ANY_VALUE(`desc`)  `desc`,ANY_VALUE(`remarks`) `remarks`, sum(due) due, sum(settled) settled, sum(variation) variation from sections s join promotions  w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
-           $bills =        DB::select('select section_name, ANY_VALUE(`remarks`) `remarks`,sum(rec) rec, sum(settled) settled, sum(prev_due) prev_due, sum(bal) bal from sections s join bills w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
-//           $references = DB::select('SELECT
-//                                                            s.section_name,
-//                                                            w.`desc`,
-//                                                            w.`remarks`,
-//                                                            w.`date_of_comm`,
-//                                                            w.`date_of_reply`,
-//                                                            w.`date_of_action`
-//                                                        FROM
-//                                                            sections s
-//                                                        JOIN
-//                                                            `references` w ON s.id = w.section_id
-//                                                        JOIN
-//                                                            reports r ON s.id = r.section_id AND r.month = w.month AND r.year = w.year
-//                                                        WHERE
-//                                                            w.month = ?
-//                                                            AND w.year = ?
-//                                                            AND w.deleted_at IS NULL
-//                                                            AND s.deleted_at IS NULL
-//                                                            AND r.deleted_at IS NULL
-//                                                        GROUP BY
-//                                                            s.section_name,
-//                                                            w.`desc`,
-//                                                            w.`remarks`,
-//                                                            w.`date_of_comm`,
-//                                                            w.`date_of_reply`,
-//                                                            w.`date_of_action`', [$month, $year]);
-
+           $works =        DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_1) pending_1, sum(pending_3) pending_3 from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+           $promotions =   DB::select('select section_name, sum(due) due, sum(settled) settled, sum(variation) variation from sections s join promotions  w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+           $bills =        DB::select('select section_name, sum(rec) rec, sum(settled) settled, sum(prev_due) prev_due, sum(bal) bal from sections s join bills w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
            $references = DB::table('sections')
                ->select('w.desc', 'w.remarks', 'w.date_of_comm','w.date_of_reply', 'w.date_of_action', 'sections.section_name')
                ->join('references as w', function ($join) {
@@ -185,6 +165,24 @@ class ReportController extends Controller
                ->groupBy('w.description', 'w.status', 'w.cut_off_date', 'sections.section_name')
                ->get();
 
+           $other = DB::table('sections')
+               ->select('w.desc', 'w.title', 'sections.section_name')
+               ->join('others  as w', function ($join) {
+                   $join->on('sections.id', '=', 'w.section_id')
+                       ->whereNull('w.deleted_at');
+               })
+               ->join('reports as r', function ($join) use ($month, $year) {
+                   $join->on('sections.id', '=', 'r.section_id')
+                       ->where('r.month', '=', $month)
+                       ->where('r.year', '=', $year)
+                       ->whereNull('r.deleted_at');
+               })
+               ->where('w.month', '=', $month)
+               ->where('w.year', '=', $year)
+               ->whereNull('sections.deleted_at')
+               ->groupBy('w.desc', 'w.title', 'sections.section_name')
+               ->get();
+
 
            $data = [
                'works'=>[
@@ -215,6 +213,11 @@ class ReportController extends Controller
                    'desc'=>'Uniform Status',
                    'data'=>$uniform,
 //                   'last_updated'=>date_format(date_create($uniform[0]->last_updated),'d/m/Y H:i')
+               ],
+               'others'=>[
+                   'desc'=>'Other Status',
+                   'data'=>$other,
+//                   'last_updated'=>date_format(date_create($other[0]->last_updated),'d/m/Y H:i')
                ],
 
            ];

@@ -243,6 +243,28 @@
         </table>
     </div>
 
+    <div class="report">
+        <h2>Other details {{$month}}</h2>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+            <thead>
+            <tr>
+                <th>Sl.</th>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($data['others']['data'] as $o)
+                <tr>
+                    <td class="number">{{$loop->index + 1}}</td>
+                    <td class="text" style="text-align: center">{{$o->title}}</td>
+                    <td class="text" style="text-align: center">{{$o->desc}}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
     <div style="text-align: right">
         Prepared By<br/>
         SO,{{$section->section_name}}

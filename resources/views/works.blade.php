@@ -23,8 +23,9 @@
                     <th>Recd.</th>
                     <th>Disposed</th>
                     <!--<th>Balance</th>-->
-                    <th>Pending >1 mnth</th>
-                    <th>Pending >3 mnths</th>
+                    <th>Pending >15 days</th>
+                    <th>Pending >30 days</th>
+                    <th>Pending >60 days</th>
                 </tr>
 
                 </thead>
@@ -36,8 +37,9 @@
                     <td><input class="form-control" type="number" name="record[0][recd]" /></td>
                     <td><input class="form-control" type="number" name="record[0][disp]" /></td>
                     <!--<td><input class="form-control" type="number" name="record[0][bal]" /></td>-->
-                    <td><input class="form-control" type="number" name="record[0][p1m]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][p3m]" /></td>
+                    <td><input class="form-control" type="number" name="record[0][p15d]" /></td>
+                    <td><input class="form-control" type="number" name="record[0][p30d]" /></td>
+                    <td><input class="form-control" type="number" name="record[0][p60d]" /></td>
 
                 </tr>
                 </tbody>
@@ -58,8 +60,9 @@
                 <th>Recd.</th>
                 <th>Disposed</th>
                 <th>Closing Balance</th>
-                <th>Pending >1 mnth</th>
-                <th>Pending >3 mnths</th>
+                <th>Pending >15 days</th>
+                <th>Pending >30 days</th>
+                <th>Pending >60 days</th>
                 @if(session('report_submitted')!=1)
                     <th>Action</th>
                 @endif
@@ -75,8 +78,9 @@
                     <td>{{$work->received}}</td>
                     <td>{{$work->disposed}}</td>
                     <td>{{$work->balance}}</td>
-                    <td>{{$work->pending_1}}</td>
-                    <td>{{$work->pending_3}}</td>
+                    <td>{{$work->pending_15}}</td>
+                    <td>{{$work->pending_30}}</td>
+                    <td>{{$work->pending_60}}</td>
                     @if(session('report_submitted')!=1)
                         <td>
                             <form action="{{ route('work.dlt', [$work->id]) }}" method="post">

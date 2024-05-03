@@ -22,9 +22,10 @@
                         <div class="card-body">
                             @csrf
                             <input type="number" id="report_year" name="report_year" class="form-control" value="{{ session('year') }}" min="1900" max="9999" step="1">
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary float-md-end">FETCH</button>
-                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-md-end">FETCH</button>
                         </div>
                     </div>
 

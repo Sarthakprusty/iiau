@@ -34,6 +34,7 @@ class BillController extends Controller
             $bill->prev_due = isset($r['prev_due']) ? $r['prev_due'] : 0;
             $bill->bal = $r['rec']+$r['prev_due']-$r['settled'];
             $bill->remarks = $r['remarks'];
+            $bill->desc = $r['desc'];
             $bill->created_by = $user->id;
             $bill->save();
         }

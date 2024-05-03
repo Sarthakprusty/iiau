@@ -33,8 +33,9 @@ class WorkController extends Controller
             $work->brought_forward = $r['bf']?$r['bf']:0;
             $work->received = $r['recd']?$r['recd']:0;
             $work->disposed = $r['disp']?$r['disp']:0;
-            $work->pending_1 = $r['p1m']?$r['p1m']:0;
-            $work->pending_3 = $r['p3m']?$r['p3m']:0;
+            $work->pending_15 = $r['p15d']?$r['p15d']:0;
+            $work->pending_30 = $r['p30d']?$r['p30d']:0;
+            $work->pending_60 = $r['p60d']?$r['p60d']:0;
             $work->balance = $work->brought_forward+$work->received-$work->disposed;
             $work->created_by = $user->id;
             $work->save();

@@ -20,8 +20,9 @@ return new class extends Migration
             $table->integer('brought_forward')->nullable(false)->default(0);
             $table->integer('received')->nullable(false)->default(0);
             $table->integer('disposed')->nullable(false)->default(0);
-            $table->integer('pending_3')->nullable(false)->default(0);
-            $table->integer('pending_1')->nullable(false)->default(0);
+            $table->integer('pending_15')->nullable(false)->default(0);
+            $table->integer('pending_30')->nullable(false)->default(0);
+            $table->integer('pending_60')->nullable(false)->default(0);
             $table->integer('balance')->nullable(false)->default(0);
             $table->integer('created_by')->nullable(false);
             $table->timestamps();

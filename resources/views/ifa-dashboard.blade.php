@@ -22,9 +22,10 @@
                         <div class="card-body">
                             @csrf
                             <input type="month" id="report_month" name="report_month" class="form-control" value="{{session('year')}}-{{session('month')}}" />
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary float-md-end">FETCH</button>
-                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-md-end">FETCH</button>
                         </div>
                     </div>
 

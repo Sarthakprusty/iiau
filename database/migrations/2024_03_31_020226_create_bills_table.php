@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('section_id')->nullable(false);
             $table->integer('month')->nullable(false);
             $table->integer('year')->nullable(false);
+            $table->text('desc')->nullable(true);
             $table->integer('rec')->nullable(false)->default(0);
             $table->integer('settled')->nullable(false)->default(0);
             $table->integer('prev_due')->nullable(false)->default(0);

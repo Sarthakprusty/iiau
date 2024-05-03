@@ -23,8 +23,9 @@
                 <th>Recd.</th>
                 <th>Disposed</th>
                 <th>Balance</th>
-                <th>Pending<br/>>1 mnth</th>
-                <th>Pending<br/>>3 mnths</th>
+                <th>Pending<br/>>15 days</th>
+                <th>Pending<br/>>30 days</th>
+                <th>Pending<br/>>60 days</th>
             </tr>
             </thead>
             <tbody>
@@ -33,8 +34,9 @@
                 $t_received = 0;
                 $t_disposed = 0;
                 $t_balance = 0;
-                $t_pending_1 = 0;
-                $t_pending_3 = 0;
+                $t_pending_15 = 0;
+                $t_pending_30 = 0;
+                $t_pending_60 = 0;
             @endphp
             @foreach ($data['works']['data'] as $work)
                 <tr>
@@ -44,16 +46,18 @@
                     <td class="number">{{$work->received}}</td>
                     <td class="number">{{$work->disposed}}</td>
                     <td class="number">{{$work->balance}}</td>
-                    <td class="number">{{$work->pending_1}}</td>
-                    <td class="number">{{$work->pending_3}}</td>
+                    <td class="number">{{$work->pending_15}}</td>
+                    <td class="number">{{$work->pending_30}}</td>
+                    <td class="number">{{$work->pending_60}}</td>
                 </tr>
                 @php
                     $t_brought_forward += $work->brought_forward;
                     $t_received += $work->received;
                     $t_disposed += $work->disposed;
                     $t_balance += $work->balance;
-                    $t_pending_1 += $work->pending_1;
-                    $t_pending_3 += $work->pending_3;
+                    $t_pending_15 += $work->pending_15;
+                    $t_pending_30 += $work->pending_30;
+                    $t_pending_60 += $work->pending_60;
                 @endphp
             @endforeach
             </tbody>
@@ -64,8 +68,9 @@
                 <th>{{$t_received}}</th>
                 <th>{{$t_disposed}}</th>
                 <th>{{$t_balance}}</th>
-                <th>{{$t_pending_1}}</th>
-                <th>{{$t_pending_3}}</th>
+                <th>{{$t_pending_15}}</th>
+                <th>{{$t_pending_30}}</th>
+                <th>{{$t_pending_60}}</th>
             </tr>
             </tfoot>
         </table>
@@ -77,6 +82,7 @@
             <thead>
             <tr>
                 <th>Sl.</th>
+                <th>Description</th>
                 <th>Received</th>
                 <th>Settled</th>
                 <th>Previous Due</th>
@@ -93,6 +99,7 @@
             @endphp
             @foreach ($data['bills']['data'] as $bills)
                 <tr>
+                    <td class="text" style="text-align: center">{{$bills->desc}}</td>
                     <td class="number">{{$loop->index + 1}}</td>
                     <td class="number">{{$bills->rec}}</td>
                     <td class="number">{{$bills->settled}}</td>

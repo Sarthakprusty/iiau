@@ -19,6 +19,7 @@
                 <thead>
                 <tr>
                     {{--<th>Sl.</th>--}}
+                    <th>Description</th>
                     <th>Received</th>
                     <th>Settled</th>
                     <th>Previous Due</th>
@@ -30,6 +31,7 @@
                 <tr>
                     {{--<td>1.</td>--}}
 
+                    <td><textarea class="form-control" name="record[0][desc]"></textarea></td>
                     <td><input class="form-control" type="number" name="record[0][rec]" /></td>
                     <td><input class="form-control" type="number" name="record[0][settled]" /></td>
                     <td><input class="form-control" type="number" name="record[0][prev_due]" /></td>
@@ -49,6 +51,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
+                <th>Description</th>
                 <th>Received</th>
                 <th>Settled</th>
                 <th>Previous Due</th>
@@ -64,6 +67,7 @@
             @foreach ($bills as $bill)
                 <tr>
                     {{--<td>{{$loop->index + 1}}.</td>--}}
+                    <td>{{$bill->desc}}</td>
                     <td>{{$bill->rec}}</td>
                     <td>{{$bill->settled}}</td>
                     <td>{{$bill->prev_due}}</td>

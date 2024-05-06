@@ -23,10 +23,17 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            if(strtolower($request->username) == 'iiau'){
+            $user = Auth::user();
+            if($user->role==1)
+                return redirect()->intended('dashboard');
+            if($user->role==2)
+                return redirect()->intended('USDashboard');
+            if($user->role==3)
                 return redirect()->intended('ifa-dashboard');
-            }else
-            return redirect()->intended('dashboard');
+//            if(strtolower($request->username) == 'iiau'){
+//                return redirect()->intended('ifa-dashboard');
+//            }else
+//            return redirect()->intended('dashboard');
         }
 
         return back()->withErrors([

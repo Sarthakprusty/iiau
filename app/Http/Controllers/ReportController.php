@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Bill;
 use App\Models\Other;
 use App\Models\Pending15;
@@ -9,7 +10,9 @@ use App\Models\Promotion;
 use App\Models\Reference;
 use App\Models\Report;
 use App\Models\Section;
+use App\Models\Status;
 use App\Models\Uniform;
+use App\Models\User;
 use App\Models\Work;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -30,6 +33,55 @@ class ReportController extends Controller
         $report->year = $year;
         $report->created_by = $user->id;
         $report->save();
+        $status = $report->statuses()->wherePivot('active', 1)->get();
+        $report->statuses()->updateExistingPivot(
+            $status,
+            [
+                'active' => 0,
+                'updated_at' => carbon::now()->toDateTimeLocalString()
+            ]
+        );
+        $statusId = 2;
+        $status = Status::find($statusId);
+        if ($status) {
+            $report->statuses()->attach($status, [
+                'created_from' => $request->ip(),
+                'created_by' => Auth::user()->id,
+                'section_id' => Auth::user()->section_id,
+                'created_at' => carbon::now()->toDateTimeLocalString()
+            ]);
+        }
+        return redirect('/dashboard');
+    }
+
+    function edit(Request $request,$id) : RedirectResponse{
+        $user = Auth::user();
+        $month = session('month');
+        $year = session('year');
+        $report = Report::findOrFail($id);
+        $report->section_id = $user->section_id;
+        $report->month = $month;
+        $report->year = $year;
+        $report->created_by = $user->id;
+        $report->save();
+        $status = $report->statuses()->wherePivot('active', 1)->get();
+        $report->statuses()->updateExistingPivot(
+            $status,
+            [
+                'active' => 0,
+                'updated_at' => carbon::now()->toDateTimeLocalString()
+            ]
+        );
+        $statusId = 2;
+        $status = Status::find($statusId);
+        if ($status) {
+            $report->statuses()->attach($status, [
+                'created_from' => $request->ip(),
+                'created_by' => Auth::user()->id,
+                'section_id' => Auth::user()->section_id,
+                'created_at' => carbon::now()->toDateTimeLocalString()
+            ]);
+        }
         return redirect('/dashboard');
     }
 
@@ -100,8 +152,19 @@ class ReportController extends Controller
                ],
 
            ];
-
-           return view('reports.section',['data'=>$data,'section'=>$section, 'month'=>$monthName, 'report'=>$reports]);
+           $statuses=[];
+           if($user->role==2) {
+               $report = Report::where('section_id', $user->section_id)->where('year', $year)->where('month', $month)->first();
+               if ($report) {
+                   $statuses = $report->statuses()
+//                       ->where('report_status.active', 1)
+                       ->whereNotNull('remark')
+                       ->get();
+                   foreach ($statuses as $status)
+                       $status->user = User::findorfail($status->pivot->created_by);
+               }
+           }
+           return view('reports.section',['data'=>$data,'section'=>$section, 'month'=>$monthName, 'report'=>$reports,'user'=>$user,'statuses'=>$statuses]);
        }
        else{
            $whereClause = [
@@ -225,4 +288,64 @@ class ReportController extends Controller
        }
 
    }
+
+    function updateStatus(Request $request,$id){
+        $action = $request->input('submit');
+        $report = Report::findOrFail($id);
+        $remarks = $request->input('remarks');
+        $user = auth()->user();
+
+        if ($action == 'Approve')  {
+            $status = $report->statuses()->wherePivot('active', 1)->get();
+            $report->statuses()->updateExistingPivot(
+                $status,
+                [
+                    'active' => 0,
+                    'updated_at'=> carbon::now()->toDateTimeLocalString()
+                ]
+            );
+            $status_id = 3;
+            $status = Status::findOrFail($status_id);
+            $report->statuses()->attach(
+                $status,
+                [
+                    'section_id' => $user->section_id,
+                    'remark' => $remarks,
+                    'created_from' => $request->ip(),
+                    'created_by' => Auth::user()->id,
+                    'created_at'=>carbon::now()->toDateTimeLocalString()
+                ]
+            );
+
+            return redirect()->intended('USDashboard');
+        }
+        elseif ($action == 'Return')   {
+            $status = $report->statuses()->wherePivot('active', 1)->get();
+            $report->statuses()->updateExistingPivot(
+                $status,
+                [
+                    'active' => 0,
+                    'updated_at'=> carbon::now()->toDateTimeLocalString()
+                ]
+            );
+            $status_id = 1;
+            $status = Status::findOrFail($status_id);
+            $report->statuses()->attach(
+                $status,
+                [
+                    'section_id' => $user->section_id,
+                    'remark' => $remarks,
+                    'created_from' => $request->ip(),
+                    'created_by' => Auth::user()->id,
+                    'created_at'=>carbon::now()->toDateTimeLocalString()
+                ]
+            );
+
+            return redirect()->intended('USDashboard');
+        }
+
+
+    }
+
+
 }

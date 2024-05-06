@@ -82,13 +82,13 @@ class DatabaseSeeder extends Seeder
 
 
         User::factory()->create([
-            'name' => 'US AdminUS',
+            'name' => 'US Admin',
             'username'=>'USadmin',
             'role'=>2,
             'section_id'=>2
         ]);
         User::factory()->create([
-            'name' => 'US GAUS',
+            'name' => 'US GA',
             'username'=>'USga',
             'role'=>2,
             'section_id'=>3

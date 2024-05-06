@@ -55,6 +55,7 @@
                                 <tr>
                                     <td>{{$loop->index + 1}}.</td>
                                     <td>{{$section->section_name}}</td>
+                                    @if ($user->role === 3 && $section->$report[0]->statuses->first() && $section->$report[0]->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(3))
                                     @if(sizeof($section->reports))
                                         <td>
                                             @php
@@ -89,6 +90,7 @@
                                         <td style="text-decoration: line-through;color: red">
                                             Not Submitted
                                         </td>
+                                    @endif
                                     @endif
                                 </tr>
                             @endforeach

@@ -10,7 +10,11 @@
     <h2>
         Report of Disposal of Work
     </h2>
-    @if(session('report_submitted')!=1)
+    @php
+        $report = \App\Models\Report::where('section_id', auth()->user()->section_id)->where('year',session('year'))->where('month',session('month'))->first()
+    @endphp
+    @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
+
     <form method="post" action="{{ route('work.save') }}">
         @csrf
         <div class="card table-responsive">
@@ -63,7 +67,7 @@
                 <th>Pending >15 days</th>
                 <th>Pending >30 days</th>
                 <th>Pending >60 days</th>
-                @if(session('report_submitted')!=1)
+                @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                     <th>Action</th>
                 @endif
             </tr>
@@ -81,7 +85,7 @@
                     <td>{{$work->pending_15}}</td>
                     <td>{{$work->pending_30}}</td>
                     <td>{{$work->pending_60}}</td>
-                    @if(session('report_submitted')!=1)
+                    @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                         <td>
                             <form action="{{ route('work.dlt', [$work->id]) }}" method="post">
                                 @csrf

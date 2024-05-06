@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,10 @@ class BillController extends Controller
             $bill->rec = isset($r['rec']) ? $r['rec'] : 0;
             $bill->settled = isset($r['settled']) ? $r['settled'] : 0;
             $bill->prev_due = isset($r['prev_due']) ? $r['prev_due'] : 0;
+            $max_settled = $bill->rec + $bill->prev_due;
+            if ($bill->settled > $max_settled) {
+                return back()->with('error','Settled amount cannot be greater than the sum of rec and prev_due..');
+            }
             $bill->bal = $r['rec']+$r['prev_due']-$r['settled'];
             $bill->remarks = $r['remarks'];
             $bill->desc = $r['desc'];

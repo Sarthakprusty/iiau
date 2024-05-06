@@ -10,7 +10,11 @@
     <h2>
         Report of References pending with Central/State Government Offices
     </h2>
-    @if(session('report_submitted')!=1)
+    @php
+        $report = \App\Models\Report::where('section_id', auth()->user()->section_id)->where('year',session('year'))->where('month',session('month'))->first()
+    @endphp
+    @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
+
     <form method="post" action="{{ route('references.save') }}">
         @csrf
         <div class="card table-responsive">
@@ -54,7 +58,7 @@
                 <th>Date of<br/>Reply</th>
                 <th>Date of<br/>Reminder or Action taken</th>
                 <th>Remarks</th>
-                @if(session('report_submitted')!=1)
+                @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                     <th>Action</th>
                 @endif
             </tr>
@@ -69,7 +73,7 @@
                     <td>{{$reference->date_of_reply}}</td>
                     <td>{{$reference->date_of_action}}</td>
                     <td>{{$reference->remarks}}</td>
-                    @if(session('report_submitted')!=1)
+                    @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                         <td>
                             <form action="{{ route('references.dlt', [$reference->id]) }}" method="post">
                                 @csrf

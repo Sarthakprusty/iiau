@@ -8,9 +8,13 @@
 @section('content')
     <div class="container-fluid">
         <h2>
-            Report of Disposal of Work
+            Report of Pending 15
         </h2>
-        @if(session('report_submitted')!=1)
+        @php
+            $report = \App\Models\Report::where('section_id', auth()->user()->section_id)->where('year',session('year'))->where('month',session('month'))->first()
+        @endphp
+        @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
+
 
             <form method="post" action="{{ route('pending15.save') }}">
                 @csrf
@@ -52,7 +56,7 @@
                     <th>description</th>
                     <th>Pending with Reasons</th>
                     <th>Action Taken/Proposed</th>
-                    @if(session('report_submitted')!=1)
+                    @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                         <th>Action</th>
                     @endif
                 </tr>
@@ -65,7 +69,7 @@
                         <td>{{$p15->desc}}</td>
                         <td>{{$p15->reason}}</td>
                         <td>{{$p15->action}}</td>
-                        @if(session('report_submitted')!=1)
+                        @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                             <td>
                                 <form action="{{ route('pending15.dlt', [$p15->id]) }}" method="post">
                                     @csrf

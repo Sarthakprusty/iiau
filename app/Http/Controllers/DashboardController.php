@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\Report;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -120,7 +121,17 @@ class DashboardController extends Controller
                 ],
 
             ];
-            return view('dashboard', ['user' => $user, 'data' => $data,]);
+            $statuses=[];
+            $report = Report::where('section_id', $user->section_id)->where('year', session('year'))->where('month', session('month'))->first();
+            if ($report) {
+                $statuses = $report->statuses()
+//                    ->where('report_status.active', 1)
+                    ->whereNotNull('remark')
+                    ->get();
+                foreach ($statuses as $status)
+                    $status->user = User::findorfail($status->pivot->created_by);
+            }
+            return view('dashboard', ['user' => $user, 'data' => $data,'statuses'=>$statuses]);
         }
     }
 }

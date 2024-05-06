@@ -45,26 +45,26 @@
                             <thead>
                             <tr>
                                 <th>Sl</th>
-                                <th>Section</th>
+                                <th>Month</th>
                                 <th>Status</th>
                                 <th>Time</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($data as $section)
+                            @foreach($data as $report)
                                 <tr>
                                     <td>{{$loop->index + 1}}.</td>
-                                    <td>{{$section->section_name}}</td>
-                                    @if(sizeof($section->reports))
+                                    <td>{{ date('F', mktime(0, 0, 0, $report->month, 1)) }}</td>
+                                    @if($report)
                                         <td>
                                             @php
-                                                $sessionYear = session('year');
-                                                $sessionMonth = session('month');
-                                                $reportYear = $section->reports[0]->created_at->format('Y');
-                                                $reportMonth = $section->reports[0]->created_at->format('m');
+                                                $sessionYear = $report->year;
+                                                $sessionMonth = $report->month;
+                                                $reportYear = $report->created_at->format('Y');
+                                                $reportMonth = $report->created_at->format('m');
                                                 $isSameYear = $sessionYear == $reportYear;
                                                 $isSameMonth = $sessionMonth == $reportMonth;
-                                                $givenDateTime = $section->reports[0]->created_at;
+                                                $givenDateTime = $report->created_at;
                                                 $dateTenDaysAgo = clone $givenDateTime;
                                                 $dateTenDaysAgo->modify('-10 days');
                                                 $isWithinTenDays = $dateTenDaysAgo->format('Y') == $sessionYear && $dateTenDaysAgo->format('m') == $sessionMonth;
@@ -73,17 +73,17 @@
                                             @endphp
 
                                             @if ($isSameYear && $isSameMonth)
-                                                <a href="{{ route('section_report', [session('year'), session('month'), $section->id]) }}" class="btn btn-success">View Report</a><br/>
+                                                <a href="{{ route('section_report', [$sessionYear, $sessionMonth, Auth::user()->section_id]) }}" class="btn btn-success">View Report</a><br/>
                                             @elseif ($isWithinTenDays)
-                                                <a href="{{ route('section_report', [session('year'), session('month'), $section->id]) }}" class="btn btn-warning">View Report</a><br/>
+                                                <a href="{{ route('section_report', [$sessionYear, $sessionMonth, Auth::user()->section_id]) }}" class="btn btn-warning">View Report</a><br/>
                                             @elseif (($difference >= 10))
-                                                <a href="{{ route('section_report', [session('year'), session('month'), $section->id]) }}" class="btn btn-danger">View Report</a><br/>
+                                                <a href="{{ route('section_report', [$sessionYear, $sessionMonth, Auth::user()->section_id]) }}" class="btn btn-danger">View Report</a><br/>
                                             @else
-                                                <a href="{{ route('section_report', [session('year'), session('month'), $section->id]) }}" class="btn btn-secondary">View Report</a><br/>
+                                                <a href="{{ route('section_report', [$sessionYear, $sessionMonth, Auth::user()->section_id]) }}" class="btn btn-secondary">View Report</a><br/>
                                             @endif
                                         </td>
                                         <td>
-                                            {{date_format($section->reports[0]->created_at,'d/m/Y H:i:s')}}
+                                            {{date_format($report->created_at,'d/m/Y H:i:s')}}
                                         </td>
                                     @else
                                         <td style="text-decoration: line-through;color: red">

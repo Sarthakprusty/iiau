@@ -10,9 +10,13 @@
         <h2>
             Other Report
         </h2>
-        @if(session('report_submitted')!=1)
+        @php
+            $report = \App\Models\Report::where('section_id', auth()->user()->section_id)->where('year',session('year'))->where('month',session('month'))->first()
+        @endphp
+        @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
 
-            <form method="post" action="{{ route('others.save') }}">
+
+        <form method="post" action="{{ route('others.save') }}">
                 @csrf
                 <div class="card table-responsive">
                     <table class="table table-bordered">
@@ -47,7 +51,7 @@
                     <th>SL</th>
                     <th>Title</th>
                     <th>Description</th>
-                    @if(session('report_submitted')!=1)
+                    @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                         <th>Action</th>
                     @endif
                 </tr>
@@ -59,7 +63,7 @@
                         <td>{{$loop->index + 1}}.</td>
                         <td>{{$o->title}}</td>
                         <td>{{$o->desc}}</td>
-                        @if(session('report_submitted')!=1)
+                        @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                             <td>
                                 <form action="{{ route('others.dlt', [$o->id]) }}" method="post">
                                     @csrf

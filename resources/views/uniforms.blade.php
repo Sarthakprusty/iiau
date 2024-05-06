@@ -8,9 +8,13 @@
 @section('content')
 <div class="container-fluid">
     <h2>
-        Report of Disposal of Work
+        Report of Uniforms
     </h2>
-    @if(session('report_submitted')!=1)
+    @php
+        $report = \App\Models\Report::where('section_id', auth()->user()->section_id)->where('year',session('year'))->where('month',session('month'))->first()
+    @endphp
+    @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
+
     <form method="post" action="{{ route('uniform.save') }}">
         @csrf
         <div class="card table-responsive">
@@ -47,7 +51,7 @@
                 <th>Description</th>
                 <th>CutOff Date</th>
                 <th>Status</th>
-                @if(session('report_submitted')!=1)
+                @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                     <th>Action</th>
                 @endif
             </tr>
@@ -60,7 +64,7 @@
                     <td>{{$uniform->description}}</td>
                     <td>{{$uniform->cut_off_date}}</td>
                     <td>{{$uniform->status}}</td>
-                    @if(session('report_submitted')!=1)
+                    @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                         <td>
                             <form action="{{ route('uniform.dlt', [$uniform->id]) }}" method="post">
                                 @csrf

@@ -37,6 +37,11 @@ class WorkController extends Controller
             $work->pending_30 = $r['p30d']?$r['p30d']:0;
             $work->pending_60 = $r['p60d']?$r['p60d']:0;
             $work->balance = $work->brought_forward+$work->received-$work->disposed;
+            $totalPending = $work->pending_60 + $work->pending_30 + $work->pending_15;
+            if ($totalPending > $work->balance) {
+                return back()->with('error','Total Pending should not be more than closing balance..');
+            }
+
             $work->created_by = $user->id;
             $work->save();
         }

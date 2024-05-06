@@ -32,6 +32,18 @@
 
             </div>
         </form>
+        @if (isset($statuses) && !empty($statuses) )
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Note:</div>
+                <div class="card-body">
+                    @foreach ($statuses as $status)
+                        <p class="card-text">
+                            {{ $status->user ? $status->user->username : 'N/A' }} - {{ $status->pivot->remark }}
+                        </p>
+                    @endforeach
+                </div>
+            </div>
+        @endif
         @if(isset($data))
             <div class="row">
                 <div class="col">
@@ -57,7 +69,12 @@
                                                             @endif
                                                         </div>
                                                         <div class="card-footer">
-                                                            @if(session('report_submitted'))
+                                                            @php
+                                                                $report = \App\Models\Report::where('section_id', auth()->user()->section_id)->where('year',session('year'))->where('month',session('month'))->first()
+                                                            @endphp
+                                                            @if($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1))
+                                                                <a href="{{ route($key) }}" class="btn btn-primary float-md-end">Update</a>
+                                                            @elseif(session('report_submitted'))
                                                                 <a href="{{ route($key) }}" class="btn btn-primary float-md-end">View</a>
                                                             @else
                                                                 <a href="{{ route($key) }}" class="btn btn-primary float-md-end">Update</a>
@@ -79,14 +96,23 @@
                                     }
                                 @endphp
 
-                                @if(session('report_submitted')==1)
-                                    Report submitted at {{session('report_submitted_at')}}
+                                @if($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1))
+                                    <form action="{{ route('report.edit', ['id' => $report->id])  }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger float-md-end">Forward</button>
+                                    </form>
 
-                                @elseif(($lastReport && $lastReport->month + 1 == session('month') && $lastReport->year == session('year')) || (!$lastReport && $todayMonth == session('month') && $todayYear == session('year')))
+
+                                @elseif(($lastReport && $lastReport->month + 1 == session('month') && $lastReport->year == session('year')) || (!$lastReport && $todayMonth == session('month') && $todayYear == session('year')) )
                                     <form action="{{ route('report.save') }}" method="post">
                                         @csrf
                                         <button type="submit" class="btn btn-danger float-md-end">Forward</button>
                                     </form>
+
+
+                                @elseif(session('report_submitted')==1)
+                                    Report submitted at {{session('report_submitted_at')}}
+
                                 @else
 
                                     Enter the previous report first.

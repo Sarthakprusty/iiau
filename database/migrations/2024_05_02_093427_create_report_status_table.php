@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('report_status', function (Blueprint $table) {
             $table->id();
             $table->integer('report_id')->nullable(false);
-            $table->integer('user_id')->nullable(false);
+            $table->integer('status_id')->nullable(false);
             $table->text('remark')->nullable(true);
-            $table->boolean('active')->nullable(true);
+            $table->string('created_from', 150)->nullable();
+            $table->boolean('active')->default(true)->nullable();
             $table->integer('created_by')->nullable(false);
+            $table->integer('section_id')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -21,6 +21,7 @@
                 text-align: justify;
             }
         </style>
+
     </head>
     <body>
     @yield('content')

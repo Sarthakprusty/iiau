@@ -13,8 +13,9 @@ class UserController extends Controller
     /**
      * Handle an authentication attempt.
      */
-    public function authenticate(Request $request): RedirectResponse
+    public function authenticate(Request $request)//: RedirectResponse
     {
+
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],

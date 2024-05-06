@@ -71,10 +71,10 @@ class DashboardController extends Controller
                 ->select(DB::raw($selectString))
                 ->where($whereClause)
                 ->get();
-//            $other = DB::table('others')
-//                ->select(DB::raw($selectString))
-//                ->where($whereClause)
-//                ->get();
+            $other = DB::table('others')
+                ->select(DB::raw($selectString))
+                ->where($whereClause)
+                ->get();
             $request->session()->put('report_submitted', false);
             $request->session()->put('report_submitted_at', '');
             if ($reports[0]->cnt > 0) {
@@ -113,11 +113,11 @@ class DashboardController extends Controller
                     'cnt' => $uniform[0]->cnt,
                     'last_updated' => date_format(date_create($uniform[0]->last_updated), 'd/m/Y H:i')
                 ],
-//                'others' => [
-//                    'desc' => 'Other Status',
-//                    'cnt' => $other[0]->cnt,
-//                    'last_updated' => date_format(date_create($other[0]->last_updated), 'd/m/Y H:i')
-//                ],
+                'others' => [
+                    'desc' => 'Other Status',
+                    'cnt' => $other[0]->cnt,
+                    'last_updated' => date_format(date_create($other[0]->last_updated), 'd/m/Y H:i')
+                ],
 
             ];
             return view('dashboard', ['user' => $user, 'data' => $data,]);

@@ -35,7 +35,7 @@ class BillController extends Controller
             $bill->prev_due = isset($r['prev_due']) ? $r['prev_due'] : 0;
             $max_settled = $bill->rec + $bill->prev_due;
             if ($bill->settled > $max_settled) {
-                return back()->with('error','Settled amount cannot be greater than the sum of rec and prev_due..');
+                return back()->with('error','Settled amount cannot be greater than the sum of rec and prev_due..')->withInput($rec);
             }
             $bill->bal = $r['rec']+$r['prev_due']-$r['settled'];
             $bill->remarks = $r['remarks'];

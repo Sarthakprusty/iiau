@@ -34,11 +34,11 @@
                 <tr>
                     {{--<td>1.</td>--}}
 
-                    <td><textarea class="form-control" name="record[0][desc]"></textarea></td>
-                    <td><input class="form-control" type="number" name="record[0][rec]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][settled]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][prev_due]" /></td>
-                    <td><textarea class="form-control" name="record[0][remarks]"></textarea></td>
+                    <td><textarea class="form-control" name="record[0][desc]" value="{{ old('record[0][desc]') }}"></textarea></td>
+                    <td><input class="form-control" type="number" name="record[0][rec]" value="{{ old('record[0][rec]') }}"/></td>
+                    <td><input class="form-control" type="number" name="record[0][settled]" value="{{ old('record[0][settled]') }}"/></td>
+                    <td><input class="form-control" type="number" name="record[0][prev_due]" value="{{ old('record[0][prev_due]') }}"/></td>
+                    <td><textarea class="form-control" name="record[0][remarks]" value="{{ old('record[0][remarks]') }}"></textarea></td>
 
                 </tr>
                 </tbody>

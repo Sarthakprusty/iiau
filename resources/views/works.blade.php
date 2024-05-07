@@ -36,14 +36,15 @@
                 <tbody>
                 <tr>
                     {{--<td>1.</td>--}}
-                    <td><input class="form-control" type="text" name="record[0][desc]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][bf]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][recd]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][disp]" /></td>
-                    <!--<td><input class="form-control" type="number" name="record[0][bal]" /></td>-->
-                    <td><input class="form-control" type="number" name="record[0][p15d]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][p30d]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][p60d]" /></td>
+                    <td><input class="form-control" type="text" name="record[0][desc]" value="{{ old('record[0][desc]') }}"></td>
+                    <td><input class="form-control" type="number" name="record[0][bf]" value="{{ old('record[0][bf]') }}"></td>
+                    <td><input class="form-control" type="number" name="record[0][recd]" value="{{ old('record[0][recd]') }}"></td>
+                    <td><input class="form-control" type="number" name="record[0][disp]" value="{{ old('record[0][disp]') }}"></td>
+                    <!--<td><input class="form-control" type="number" name="record[0][bal]" value="{{ old('record[0][bal]') }}"></td>-->
+                    <td><input class="form-control" type="number" name="record[0][p15d]" value="{{ old('record[0][p15d]') }}"></td>
+                    <td><input class="form-control" type="number" name="record[0][p30d]" value="{{ old('record[0][p30d]') }}"></td>
+                    <td><input class="form-control" type="number" name="record[0][p60d]" value="{{ old('record[0][p60d]') }}"></td>
+
 
                 </tr>
                 </tbody>

@@ -171,9 +171,101 @@ class ReportController extends Controller
                ['month',$month],
                ['year',$year]
            ];
-           $works =        DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_15) pending_15, sum(pending_30) pending_30,sum(pending_60) pending_60, from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
-           $promotions =   DB::select('select section_name, sum(due) due, sum(settled) settled, sum(variation) variation from sections s join promotions  w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
-           $bills =        DB::select('select section_name, sum(rec) rec, sum(settled) settled, sum(prev_due) prev_due, sum(bal) bal from sections s join bills w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+//           $works =        DB::select('select section_name, sum(brought_forward) brought_forward, sum(received) received, sum(disposed) disposed,sum(balance) balance, sum(pending_15) pending_15, sum(pending_30) pending_30,sum(pending_60) pending_60, from sections s join works w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+//           $promotions =   DB::select('select section_name, sum(due) due, sum(settled) settled, sum(variation) variation from sections s join promotions  w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+//           $bills =        DB::select('select section_name, sum(rec) rec, sum(settled) settled, sum(prev_due) prev_due, sum(bal) bal from sections s join bills w on s.id=w.section_id and w.deleted_at is null and s.deleted_at is null join reports r on s.id=r.section_id and r.month=w.month and r.year=w.year and r.deleted_at is null where  w.month = ? and w.year = ? group by s.section_name', [$month,$year]);
+
+           $works = DB::table('sections as s')
+               ->join('works as w', function ($join) {
+                   $join->on('s.id', '=', 'w.section_id')
+                       ->whereNull('w.deleted_at');
+               })
+               ->join('reports as r', function ($join) use ($month, $year) {
+                   $join->on('s.id', '=', 'r.section_id')
+                       ->where('r.month', '=', $month)
+                       ->where('r.year', '=', $year)
+                       ->whereNull('r.deleted_at');
+               })
+               ->join('report_status as rs', function ($join) {
+                   $join->on('r.id', '=', 'rs.report_id')
+                       ->where('rs.active', 1)
+                       ->where('rs.status_id', 3);
+               })
+               ->select(
+                   's.section_name',
+                   DB::raw('SUM(w.brought_forward) as brought_forward'),
+                   DB::raw('SUM(w.received) as received'),
+                   DB::raw('SUM(w.disposed) as disposed'),
+                   DB::raw('SUM(w.balance) as balance'),
+                   DB::raw('SUM(w.pending_15) as pending_15'),
+                   DB::raw('SUM(w.pending_30) as pending_30'),
+                   DB::raw('SUM(w.pending_60) as pending_60')
+               )
+               ->where('w.month', '=', $month)
+               ->where('w.year', '=', $year)
+               ->whereNull('s.deleted_at')
+               ->groupBy('s.section_name')
+               ->get();
+
+           $promotions = DB::table('sections as s')
+               ->join('promotions as w', function ($join) {
+                   $join->on('s.id', '=', 'w.section_id')
+                       ->whereNull('w.deleted_at');
+               })
+               ->join('reports as r', function ($join) use ($month, $year) {
+                   $join->on('s.id', '=', 'r.section_id')
+                       ->where('r.month', '=', $month)
+                       ->where('r.year', '=', $year)
+                       ->whereNull('r.deleted_at');
+               })
+               ->join('report_status as rs', function ($join) {
+                   $join->on('r.id', '=', 'rs.report_id')
+                       ->where('rs.active', 1)
+                       ->where('rs.status_id', 3);
+               })
+               ->select(
+                   's.section_name',
+                   DB::raw('SUM(w.due) as due'),
+                   DB::raw('SUM(w.settled) as settled'),
+                   DB::raw('SUM(w.variation) as variation')
+               )
+               ->where('w.month', '=', $month)
+               ->where('w.year', '=', $year)
+               ->whereNull('s.deleted_at')
+               ->groupBy('s.section_name')
+               ->get();
+
+           $bills = DB::table('sections as s')
+               ->join('bills as w', function ($join) {
+                   $join->on('s.id', '=', 'w.section_id')
+                       ->whereNull('w.deleted_at');
+               })
+               ->join('reports as r', function ($join) use ($month, $year) {
+                   $join->on('s.id', '=', 'r.section_id')
+                       ->where('r.month', '=', $month)
+                       ->where('r.year', '=', $year)
+                       ->whereNull('r.deleted_at');
+               })
+               ->join('report_status as rs', function ($join) {
+                   $join->on('r.id', '=', 'rs.report_id')
+                       ->where('rs.active', 1)
+                       ->where('rs.status_id', 3);
+               })
+               ->select(
+                   's.section_name',
+                   DB::raw('SUM(w.rec) as rec'),
+                   DB::raw('SUM(w.settled) as settled'),
+                   DB::raw('SUM(w.prev_due) as prev_due'),
+                   DB::raw('SUM(w.bal) as bal')
+               )
+               ->where('w.month', '=', $month)
+               ->where('w.year', '=', $year)
+               ->whereNull('s.deleted_at')
+               ->groupBy('s.section_name')
+               ->get();
+
+
+
            $references = DB::table('sections')
                ->select('w.desc', 'w.remarks', 'w.date_of_comm','w.date_of_reply', 'w.date_of_action', 'sections.section_name')
                ->join('references as w', function ($join) {
@@ -185,6 +277,11 @@ class ReportController extends Controller
                        ->where('r.month', '=', $month)
                        ->where('r.year', '=', $year)
                        ->whereNull('r.deleted_at');
+               })
+               ->join('report_status as rs', function ($join) {
+                   $join->on('r.id', '=', 'rs.report_id')
+                       ->where('rs.active', 1)
+                       ->where('rs.status_id', 3);
                })
                ->where('w.month', '=', $month)
                ->where('w.year', '=', $year)
@@ -204,6 +301,11 @@ class ReportController extends Controller
                        ->where('r.year', '=', $year)
                        ->whereNull('r.deleted_at');
                })
+                 ->join('report_status as rs', function ($join) {
+                     $join->on('r.id', '=', 'rs.report_id')
+                         ->where('rs.active', 1)
+                         ->where('rs.status_id', 3);
+                 })
                ->where('w.month', '=', $month)
                ->where('w.year', '=', $year)
                ->whereNull('sections.deleted_at')
@@ -222,6 +324,11 @@ class ReportController extends Controller
                        ->where('r.year', '=', $year)
                        ->whereNull('r.deleted_at');
                })
+               ->join('report_status as rs', function ($join) {
+                   $join->on('r.id', '=', 'rs.report_id')
+                       ->where('rs.active', 1)
+                       ->where('rs.status_id', 3);
+               })
                ->where('w.month', '=', $month)
                ->where('w.year', '=', $year)
                ->whereNull('sections.deleted_at')
@@ -239,6 +346,11 @@ class ReportController extends Controller
                        ->where('r.month', '=', $month)
                        ->where('r.year', '=', $year)
                        ->whereNull('r.deleted_at');
+               })
+               ->join('report_status as rs', function ($join) {
+                   $join->on('r.id', '=', 'rs.report_id')
+                       ->where('rs.active', 1)
+                       ->where('rs.status_id', 3);
                })
                ->where('w.month', '=', $month)
                ->where('w.year', '=', $year)

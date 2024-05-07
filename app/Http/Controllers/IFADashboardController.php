@@ -18,8 +18,17 @@ class IFADashboardController extends Controller
         if ($user->username == 'iiau'){
             $request->session()->put('month', date('m'));
             $request->session()->put('year', date('Y'));
-            return view('ifa-dashboard', ['user' => $user]);
+            $month = $request->session()->put('month', date('m'));
+            $year = $request->session()->put('year', date('Y'));
+
+            $sections = Section::with(['reports' => function ($query) use ($month, $year) {
+                $query->where('month', $month)->where('year', $year);
+            }])->orderBy('section_name')->get();
+
+            return view('ifa-dashboard', ['user' => $user, 'data' => $sections]);
         }
+        if($user->role==2)
+            return redirect()->intended('USDashboard');
         else
             return redirect()->intended('dashboard');
     }
@@ -35,12 +44,15 @@ class IFADashboardController extends Controller
             $data = [];
             $request->session()->put('month', $month);
             $request->session()->put('year', $year);
+
             $sections = Section::with(['reports' => function ($query) use ($month, $year) {
                 $query->where('month', $month)->where('year', $year);
             }])->orderBy('section_name')->get();
 
             return view('ifa-dashboard', ['user' => $user, 'data' => $sections]);
         }
+        if($user->role==2)
+            return redirect()->intended('USDashboard');
         else
             return redirect()->intended('dashboard');
     }

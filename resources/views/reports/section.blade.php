@@ -9,7 +9,7 @@
             @endif
 
             <div style="display:block">
-                @if (isset($statuses) && !empty($statuses) && $user->role == 2)
+                @if (isset($statuses) && !empty($statuses) && $user->role == 2 && $statuses->isNotEmpty())
 
                     <div>Note:</div>
                     <div>

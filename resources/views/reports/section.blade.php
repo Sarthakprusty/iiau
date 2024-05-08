@@ -4,23 +4,23 @@
 @section('title', 'SectionReport')
 
 @section('content')
-    @if ($user->role === 2 && $report[0]->statuses->first() && $report[0]->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(2))
-        <div style="width: 80%;display: flex;float: left">
-            @endif
+{{--    @if ($user->role === 2 && $report[0]->statuses->first() && $report[0]->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(2))--}}
+{{--        <div style="width: 80%;display: flex;float: left">--}}
+{{--            @endif--}}
 
-            <div style="display:block">
-                @if (isset($statuses) && !empty($statuses) && $user->role == 2 && $statuses->isNotEmpty())
+{{--            <div style="display:block">--}}
+{{--                @if (isset($statuses) && !empty($statuses) && $user->role == 2 && $statuses->isNotEmpty())--}}
 
-                    <div>Note:</div>
-                    <div>
-                        @foreach ($statuses as $status)
-                            <p class="card-text">
-                                {{ $status->user ? $status->user->username : 'N/A' }} - {{ $status->pivot->remark }}
-                            </p>
-                        @endforeach
-                    </div>
+{{--                    <div>Note:</div>--}}
+{{--                    <div>--}}
+{{--                        @foreach ($statuses as $status)--}}
+{{--                            <p class="card-text">--}}
+{{--                                {{ $status->user ? $status->user->username : 'N/A' }} - {{ $status->pivot->remark }}--}}
+{{--                            </p>--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
 
-                @endif
+{{--                @endif--}}
             <div style="width: 100%; text-align: center">
                 PRESIDENT'S SECRETARIAT<br/>
                 {{$section->section_name}}
@@ -293,25 +293,25 @@
                 Prepared By<br/>
                 SO,{{$section->section_name}}
             </div>
-            </div>
-            @if ($user->role === 2 && $report[0]->statuses->first() && $report[0]->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(2))
-                </div>
-        <div style="width: 5%;display: flex;float: right"></div>
-            <div style="width: 15%;display: flex;float: right">
-                <form method="post" action="{{ route('report.updateStatus', ['id' => $report[0]->id]) }}" id="submitstatusform">
-                    @csrf
-                    <div style="margin-top: 3%;">
-                        <strong style="font-size: 130%;">Note:</strong>
-                        <div style="margin-top: 2%;">
-                            <textarea class="form-control" id="remarks" name="remarks" style="height: 200px; width: 100%;" placeholder="abc....">{{ old('remarks') }}</textarea>
-                        </div>
-                        <div>
-                            <button type="submit" style="margin-right: 10px; margin-top: 10px;" class="btn btn-success" name="submit" value="Approve" onclick="return confirm('Are you sure, You want to Approve this report?')">Approve</button>
-                            <button type="submit" style="margin-top: 10px;" class="btn btn-danger" name="submit" value="Return" onclick="return confirm('Are you sure, You want to Return this report?')">Return</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+{{--            </div>--}}
+{{--            @if ($user->role === 2 && $report[0]->statuses->first() && $report[0]->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(2))--}}
+{{--                </div>--}}
+{{--        <div style="width: 5%;display: flex;float: right"></div>--}}
+{{--            <div style="width: 15%;display: flex;float: right">--}}
+{{--                <form method="post" action="{{ route('report.updateStatus', ['id' => $report[0]->id]) }}" id="submitstatusform">--}}
+{{--                    @csrf--}}
+{{--                    <div style="margin-top: 3%;">--}}
+{{--                        <strong style="font-size: 130%;">Note:</strong>--}}
+{{--                        <div style="margin-top: 2%;">--}}
+{{--                            <textarea class="form-control" id="remarks" name="remarks" style="height: 200px; width: 100%;" placeholder="abc....">{{ old('remarks') }}</textarea>--}}
+{{--                        </div>--}}
+{{--                        <div>--}}
+{{--                            <button type="submit" style="margin-right: 10px; margin-top: 10px;" class="btn btn-success" name="submit" value="Approve" onclick="return confirm('Are you sure, You want to Approve this report?')">Approve</button>--}}
+{{--                            <button type="submit" style="margin-top: 10px;" class="btn btn-danger" name="submit" value="Return" onclick="return confirm('Are you sure, You want to Return this report?')">Return</button>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </form>--}}
+{{--            </div>--}}
     @endif
 
 

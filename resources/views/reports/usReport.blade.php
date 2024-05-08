@@ -4,13 +4,13 @@
 @section('title', 'SectionReport')
 
 @section('content')
-
-
+    <div class="container-fluid">
+    <div class="row">
     @if ($user->role === 2 && $report[0]->statuses->first() && $report[0]->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(2))
         <div class="col-md-9">
             @endif
 
-{{--            <div style="display:block">--}}
+            <div class="row" style="margin-top: 10px">
 
                     @if (isset($statuses) && !empty($statuses) && $user->role == 2 && $statuses->isNotEmpty() )
                         <div class="card text-white bg-info mb-3">
@@ -24,6 +24,9 @@
                             </div>
                         </div>
                     @endif
+            </div>
+
+            <div class="row">
 
                 <div style="width: 100%; text-align: center">
                     PRESIDENT'S SECRETARIAT<br/>
@@ -35,7 +38,7 @@
 
                 <div class="report">
                     <h2>Work Report for {{$month}}</h2>
-                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table">
                         <thead>
                         <tr>
                             <th>Sl.</th>
@@ -99,7 +102,7 @@
 
                 <div class="report">
                     <h2>Bills Processed in {{$month}}</h2>
-                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table">
                         <thead>
                         <tr>
                             <th>Sl.</th>
@@ -150,7 +153,7 @@
 
                 <div class="report">
                     <h2>Promotions, Retirements etc in {{$month}}</h2>
-                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table">
                         <thead>
                         <tr>
                             <th>Sl.</th>
@@ -197,7 +200,7 @@
 
                 <div class="report">
                     <h2>Communications in {{$month}}</h2>
-                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table">
                         <thead>
                         <tr>
                             <th>Sl.</th>
@@ -225,7 +228,7 @@
 
                 <div class="report">
                     <h2>Status of Uniforms in {{$month}}</h2>
-                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table">
                         <thead>
                         <tr>
                             <th>Sl.</th>
@@ -249,7 +252,7 @@
 
                 <div class="report">
                     <h2>Bills pending for more than 15 days in {{$month}}</h2>
-                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table">
                         <thead>
                         <tr>
                             <th>Sl.</th>
@@ -271,9 +274,10 @@
                     </table>
                 </div>
 
+
                 <div class="report">
                     <h2>Other details {{$month}}</h2>
-                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table" >
                         <thead>
                         <tr>
                             <th>Sl.</th>
@@ -297,9 +301,9 @@
                     Prepared By<br/>
                     SO,{{$section->section_name}}
                 </div>
-{{--            </div>--}}
 
 
+            </div>
 
 
             @if ($user->role === 2 && $report[0]->statuses->first() && $report[0]->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(2))
@@ -316,7 +320,7 @@
                     <div class="row" style="margin-left: 0%; margin-right: 1.5%;">
                         <textarea class="form-control" id="remarks" name="remarks" style="height: 200px;" placeholder="abc....">{{ old('remarks') }}</textarea>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-top: 10px">
                         <div class="col-6" style="text-align: right">
                             <button type="submit" class="btn btn-success" name="submit" value="Approve" onclick="return confirm('Are you sure, You want to Approve this report?')">Approve</button>
                         </div>
@@ -328,8 +332,8 @@
             </form>
         </div>
     @endif
-
-
+    </div>
+    </div>
 
 
 {{--        <div style="width: 5%;display: flex;float: right"></div>--}}

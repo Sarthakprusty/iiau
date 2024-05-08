@@ -18,8 +18,8 @@ class IFADashboardController extends Controller
         if ($user->username == 'iiau'){
             $request->session()->put('month', date('m'));
             $request->session()->put('year', date('Y'));
-            $month = $request->session()->put('month', date('m'));
-            $year = $request->session()->put('year', date('Y'));
+            $month = date('m');
+            $year = date('Y');
 
             $sections = Section::with(['reports' => function ($query) use ($month, $year) {
                 $query->where('month', $month)->where('year', $year);

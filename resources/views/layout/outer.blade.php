@@ -161,17 +161,12 @@
 </head>
 <body>
 
-<div style="background-image: url('images/Untitled10_20240103115745.png');
-  background-size: 80vh;
-  background-position: right top;
-  background-repeat: no-repeat;
-  position: relative;
-  background-attachment: fixed;" class="mat-typography">
-    <div class="textbox" style="margin-top: 1cm">
-       <!-- <strong class="title">Welcome to Samekit.</strong>
+<div style="background: linear-gradient(to top left,#c2aff1, lightblue)">
+{{--    <div class="textbox" style="margin-top: 1cm">--}}
+{{--       <!-- <strong class="title">Welcome to Samekit.</strong>--}}
 
-        <div class="subtitle" style="margin-top: 1.2cm;">Apply, Request, Collect Everything at One place now.</div>-->
-    </div>
+{{--        <div class="subtitle" style="margin-top: 1.2cm;">Apply, Request, Collect Everything at One place now.</div>-->--}}
+{{--    </div>--}}
 
     <div class="main-body" style="width: 100%">
         @yield('content')

@@ -49,12 +49,13 @@
         //border-radius: 40px;
         //background-color: transparent;
         }
-        //monkeylog{
-          //  background-image: url('https://wallpapercave.com/wp/wp6515991.jpg');background-size: cover; background-position: center;background-repeat: no-repeat;width: 650px;height: 500px;box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
-          //  display: flex;
-          //  align-items: center;
-          //  flex-direction: column;
-          //}
+
+        .monkeylog{
+            background-image: url('../../../storage/rb.jpg');background-size: cover; background-position: center;background-repeat: no-repeat;width: 650px;height: 500px;box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+          }
         .animcon
         {
             background-color: white;
@@ -65,7 +66,7 @@
             height: 160px;
             width: 160px;
             border-radius: 50%;
-            background-image: url('https://wallpapercave.com/wp/wp6515388.jpg');
+            background-image: url('../../../storage/rbnight.jpg');
             background-size: cover;
         //background-size: 90% 85%;
             background-repeat: no-repeat;

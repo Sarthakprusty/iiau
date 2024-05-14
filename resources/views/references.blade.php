@@ -69,9 +69,9 @@
                 <tr>
                     <td>{{$loop->index + 1}}.</td>
                     <td>{{$reference->desc}}</td>
-                    <td>{{$reference->date_of_comm}}</td>
-                    <td>{{$reference->date_of_reply}}</td>
-                    <td>{{$reference->date_of_action}}</td>
+                    <td>{{ date_format(date_create($reference->date_of_comm), 'd/m/Y') }}</td>
+                    <td>{{ date_format(date_create($reference->date_of_reply), 'd/m/Y') }}</td>
+                    <td>{{ date_format(date_create($reference->date_of_action), 'd/m/Y') }}</td>
                     <td>{{$reference->remarks}}</td>
                     @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                         <td>

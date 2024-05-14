@@ -33,7 +33,7 @@ class PromotionController extends Controller
             $work->desc = $r['desc'];
             $work->due = isset($r['due']) ? $r['due'] : 0;
             $work->settled = isset($r['settled']) ? $r['settled'] : 0;
-            $work->variation = isset($r['variation']) ? $r['variation'] : 0;
+            $work->variation = $work->due-$work->settled;
             $work->remarks = $r['remarks'];
             $work->created_by = $user->id;
             $work->save();

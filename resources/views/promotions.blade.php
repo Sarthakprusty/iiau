@@ -25,7 +25,7 @@
                     <th>Description</th>
                     <th>Due</th>
                     <th>Settled</th>
-                    <th>Variation</th>
+{{--                    <th>Variation</th>--}}
                     <th>Remarks</th>
                 </tr>
 
@@ -48,7 +48,7 @@
                     </td>
                     <td><input class="form-control" type="number" name="record[0][due]" /></td>
                     <td><input class="form-control" type="number" name="record[0][settled]" /></td>
-                    <td><input class="form-control" type="number" name="record[0][variation]" /></td>
+{{--                    <td><input class="form-control" type="number" name="record[0][variation]" /></td>--}}
                     <td><textarea class="form-control" name="record[0][remarks]"></textarea></td>
 
                 </tr>

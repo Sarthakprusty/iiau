@@ -62,7 +62,7 @@
                 <tr>
                     <td>{{$loop->index + 1}}.</td>
                     <td>{{$uniform->description}}</td>
-                    <td>{{$uniform->cut_off_date}}</td>
+                    <td>{{ date_format(date_create($uniform->cut_off_date), 'd/m/Y') }}</td>
                     <td>{{$uniform->status}}</td>
                     @if(session('report_submitted')!=1 || ($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1)))
                         <td>

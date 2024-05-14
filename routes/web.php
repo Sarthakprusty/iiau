@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\CorrespondenceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IFADashboardController;
 use App\Http\Controllers\OthersController;
@@ -43,6 +44,9 @@ Route::get('/report/{year}/{month}/{section_id?}',[ReportController::class,'getR
 Route::get('/bills',[BillController::class,'form'])->middleware('auth')->name('bills');;
 Route::post('/bills',[BillController::class,'saveBill'])->middleware('auth')->name('bill.save');
 Route::delete('/bills/{id}',[BillController::class,'delete'])->middleware('auth')->name('bill.dlt');
+Route::get('/correspondences',[CorrespondenceController::class,'form'])->middleware('auth')->name('correspondences');;
+Route::post('/correspondences',[CorrespondenceController::class,'saveCorrespondence'])->middleware('auth')->name('correspondence.save');
+Route::delete('/correspondences/{id}',[CorrespondenceController::class,'delete'])->middleware('auth')->name('correspondence.dlt');
 Route::get('/uniforms',[UniformController::class,'form'])->middleware('auth')->name('uniforms');;
 Route::post('/uniforms',[UniformController::class,'save'])->middleware('auth')->name('uniform.save');
 Route::delete('/uniforms/{id}',[UniformController::class,'delete'])->middleware('auth')->name('uniform.dlt');

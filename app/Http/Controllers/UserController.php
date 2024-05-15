@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -50,5 +51,31 @@ class UserController extends Controller
 
         return redirect('/login');
     }
+
+    public function change_password(Request $request)
+    {
+        $user = Auth::user();
+        if($request->password && $request->password!==null){
+            $user->password = Hash::make($request->password);
+            if ($user->role == 1)
+                return redirect()->intended('dashboard');
+            if ($user->role == 2)
+                return redirect()->intended('USDashboard');
+            if ($user->role == 3)
+                return redirect()->intended('ifa-dashboard');
+//            Auth::logout();
+//
+//            $request->session()->invalidate();
+//
+//            $request->session()->regenerateToken();
+//
+//            return redirect('/login');
+        }
+        else
+            return back()->withInput($request->input())->with('error','Password can not be empty');
+
+    }
+
+
 
 }

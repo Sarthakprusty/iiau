@@ -91,10 +91,10 @@ class DashboardController extends Controller
             ->select(DB::raw($selectString))
             ->where($whereClause)
             ->get();
-        $correspondence = DB::table('correspondences')
-            ->select(DB::raw($selectString))
-            ->where($whereClause)
-            ->get();
+//        $correspondence = DB::table('correspondences')
+//            ->select(DB::raw($selectString))
+//            ->where($whereClause)
+//            ->get();
         $request->session()->put('report_submitted', false);
         $request->session()->put('report_submitted_at', '');
         if ($reports[0]->cnt > 0) {
@@ -138,11 +138,11 @@ class DashboardController extends Controller
                 'cnt' => $other[0]->cnt,
                 'last_updated' => date_format(date_create($other[0]->last_updated), 'd/m/Y H:i')
             ],
-            'correspondences' => [
-                'desc' => 'correspondence Status',
-                'cnt' => $correspondence[0]->cnt,
-                'last_updated' => date_format(date_create($correspondence[0]->last_updated), 'd/m/Y H:i')
-            ],
+//            'correspondences' => [
+//                'desc' => 'correspondence Status',
+//                'cnt' => $correspondence[0]->cnt,
+//                'last_updated' => date_format(date_create($correspondence[0]->last_updated), 'd/m/Y H:i')
+//            ],
 
         ];
         $statuses = [];

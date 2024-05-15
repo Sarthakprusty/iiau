@@ -56,7 +56,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link text-white text-bold fontd" href='{{route('dashboard')}}'>Home </a>
+                    <a class="nav-link text-white text-bold fontd" href='{{route('user.change_password')}}'>Change Password </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white text-bold ">|</a>

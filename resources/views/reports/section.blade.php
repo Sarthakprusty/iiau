@@ -36,8 +36,8 @@
                     <tr>
                         <th>Sl.</th>
                         <th>Name</th>
-                        <th>Action</th>
-                        <th>Action desc</th>
+                        <th>Task</th>
+                        <th>Task type</th>
                         <th>BF</th>
                         <th>Recd.</th>
                         <th>Disposed</th>

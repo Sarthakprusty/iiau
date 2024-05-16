@@ -9,7 +9,8 @@
         IIAU
     </div>
     <div class="report">
-        <h2>Recipts for {{$month}}</h2>
+
+        <h2>Receipts for {{$month}}</h2>
         <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
             <thead>
             <tr>
@@ -72,7 +73,142 @@
         </table>
 
 
-{{--        <h2>Bills processed in {{$month}}</h2>--}}
+        <h2>Bills processed in {{$month}}</h2>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+            <thead>
+            <tr>
+                <th>Sl.</th>
+                <th>Name</th>
+                <th>Task type</th>
+                <th>BF</th>
+                <th>Recd.</th>
+                <th>Disposed</th>
+                <th>Balance</th>
+                <th>Pending<br/>>15 days</th>
+                <th>Pending<br/>>30 days</th>
+                <th>Pending<br/>>60 days</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $t_brought_forward = 0;
+                $t_received = 0;
+                $t_disposed = 0;
+                $t_balance = 0;
+                $t_pending_15 = 0;
+                $t_pending_30 = 0;
+                $t_pending_60 = 0;
+            @endphp
+            @foreach ($data['works_byTask']['data'] as $work)
+                @if(isset($work->action) && $work->action == 'bills')
+                <tr>
+                    <td class="number">{{$loop->index + 1}}</td>
+                    <td class="text" >{{$work->desc}}</td>
+{{--                    <td class="text" >{{$work->action}}</td>--}}
+                    <td class="text" >{{$work->bill_receipt_desc}}</td>
+                    <td class="number">{{$work->brought_forward}}</td>
+                    <td class="number">{{$work->received}}</td>
+                    <td class="number">{{$work->disposed}}</td>
+                    <td class="number">{{$work->balance}}</td>
+                    <td class="number">{{$work->pending_15}}</td>
+                    <td class="number">{{$work->pending_30}}</td>
+                    <td class="number">{{$work->pending_60}}</td>
+                </tr>
+                @php
+                    $t_brought_forward += $work->brought_forward;
+                    $t_received += $work->received;
+                    $t_disposed += $work->disposed;
+                    $t_balance += $work->balance;
+                    $t_pending_15 += $work->pending_15;
+                    $t_pending_30 += $work->pending_30;
+                    $t_pending_60 += $work->pending_60;
+                @endphp
+                @endif
+            @endforeach
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="3">Total</th>
+                <th>{{$t_brought_forward}}</th>
+                <th>{{$t_received}}</th>
+                <th>{{$t_disposed}}</th>
+                <th>{{$t_balance}}</th>
+                <th>{{$t_pending_15}}</th>
+                <th>{{$t_pending_30}}</th>
+                <th>{{$t_pending_60}}</th>
+            </tr>
+            </tfoot>
+        </table>
+
+        <h2>Receipts processed in {{$month}}</h2>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
+            <thead>
+            <tr>
+                <th>Sl.</th>
+                <th>Name</th>
+                <th>Task type</th>
+                <th>BF</th>
+                <th>Recd.</th>
+                <th>Disposed</th>
+                <th>Balance</th>
+                <th>Pending<br/>>15 days</th>
+                <th>Pending<br/>>30 days</th>
+                <th>Pending<br/>>60 days</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $t_brought_forward = 0;
+                $t_received = 0;
+                $t_disposed = 0;
+                $t_balance = 0;
+                $t_pending_15 = 0;
+                $t_pending_30 = 0;
+                $t_pending_60 = 0;
+            @endphp
+            @foreach ($data['works_byTask']['data'] as $work)
+                @if(isset($work->action) && $work->action == 'receipts')
+                <tr>
+                    <td class="number">{{$loop->index + 1}}</td>
+                    <td class="text" >{{$work->desc}}</td>
+{{--                    <td class="text" >{{$work->action}}</td>--}}
+                    <td class="text" >{{$work->bill_receipt_desc}}</td>
+                    <td class="number">{{$work->brought_forward}}</td>
+                    <td class="number">{{$work->received}}</td>
+                    <td class="number">{{$work->disposed}}</td>
+                    <td class="number">{{$work->balance}}</td>
+                    <td class="number">{{$work->pending_15}}</td>
+                    <td class="number">{{$work->pending_30}}</td>
+                    <td class="number">{{$work->pending_60}}</td>
+                </tr>
+                @php
+                    $t_brought_forward += $work->brought_forward;
+                    $t_received += $work->received;
+                    $t_disposed += $work->disposed;
+                    $t_balance += $work->balance;
+                    $t_pending_15 += $work->pending_15;
+                    $t_pending_30 += $work->pending_30;
+                    $t_pending_60 += $work->pending_60;
+                @endphp
+                @endif
+            @endforeach
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="3">Total</th>
+                <th>{{$t_brought_forward}}</th>
+                <th>{{$t_received}}</th>
+                <th>{{$t_disposed}}</th>
+                <th>{{$t_balance}}</th>
+                <th>{{$t_pending_15}}</th>
+                <th>{{$t_pending_30}}</th>
+                <th>{{$t_pending_60}}</th>
+            </tr>
+            </tfoot>
+        </table>
+
+
+        {{--        <h2>Bills processed in {{$month}}</h2>--}}
 {{--        <table style="width: 100%; border-collapse: collapse; border: 1px solid;">--}}
 {{--            <thead>--}}
 {{--            <tr>--}}

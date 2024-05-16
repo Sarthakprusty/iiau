@@ -209,6 +209,33 @@ class ReportController extends Controller
                ->groupBy('s.section_name')
                ->get();
 
+           $works_byTask = DB::table('sections as s')
+               ->join('works as w', function ($join) {
+                   $join->on('s.id', '=', 'w.section_id')
+                       ->whereNull('w.deleted_at');
+               })
+               ->join('reports as r', function ($join) use ($month, $year) {
+                   $join->on('s.id', '=', 'r.section_id')
+                       ->where('r.month', '=', $month)
+                       ->where('r.year', '=', $year)
+                       ->whereNull('r.deleted_at');
+               })
+               ->join('report_status as rs', function ($join) {
+                   $join->on('r.id', '=', 'rs.report_id')
+                       ->where('rs.active', 1)
+                       ->where('rs.status_id', 3);
+               })
+               ->select(
+                   's.section_name','w.brought_forward','w.received','w.disposed','w.balance','w.pending_15','w.pending_30','w.pending_60','w.action','w.bill_receipt_desc','w.desc'
+               )
+               ->where('w.month', '=', $month)
+               ->where('w.year', '=', $year)
+               ->whereNull('s.deleted_at')
+               ->groupBy('s.section_name', 'w.brought_forward', 'w.received', 'w.disposed', 'w.balance', 'w.pending_15', 'w.pending_30', 'w.pending_60', 'w.action', 'w.bill_receipt_desc', 'w.desc')
+
+               ->get();
+
+
            $promotions = DB::table('sections as s')
                ->join('promotions as w', function ($join) {
                    $join->on('s.id', '=', 'w.section_id')
@@ -365,6 +392,10 @@ class ReportController extends Controller
                'works'=>[
                    'desc'=>'Work Report',
                    'data'=>$works,
+               ],
+               'works_byTask'=>[
+                   'desc'=>'Work Report by Task',
+                   'data'=>$works_byTask,
                ],
 //               'bills'=>[
 //                   'desc'=>'Bills',

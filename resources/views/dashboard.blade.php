@@ -32,7 +32,7 @@
 
             </div>
         </form>
-        @if (isset($statuses) && !empty($statuses) )
+        @if (isset($statuses) && !empty($statuses) && $statuses->isNotEmpty())
             <div class="card text-white bg-info mb-3">
                 <div class="card-header">Note:</div>
                 <div class="card-body">
@@ -86,37 +86,47 @@
                                     </div>
                             </div>
                             <div class="card-footer">
-                                @php
-                                    $lastReport = \App\Models\Report::where('section_id', auth()->user()->section_id)
-                                        ->latest()
-                                        ->first();
-                                    if (!$lastReport || $lastReport == null) {
-                                        $todayMonth = date('n'); // Current month without leading zeros
-                                        $todayYear = date('Y'); // Get the current year
-                                    }
-                                @endphp
+{{--                                @php--}}
+{{--                                    $lastReport = \App\Models\Report::where('section_id', auth()->user()->section_id)--}}
+{{--                                        ->latest()--}}
+{{--                                        ->first();--}}
+{{--                                    if (!$lastReport || $lastReport == null) {--}}
+{{--                                        $todayMonth = date('n'); // Current month without leading zeros--}}
+{{--                                        $todayYear = date('Y'); // Get the current year--}}
+{{--                                    }--}}
+{{--                                @endphp--}}
 
-                                @if($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1))
-                                    <form action="{{ route('report.edit', ['id' => $report->id])  }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger float-md-end">Forward</button>
-                                    </form>
-
-
-                                @elseif(($lastReport && $lastReport->month + 1 == session('month') && $lastReport->year == session('year')) || (!$lastReport && $todayMonth == session('month') && $todayYear == session('year')) )
-                                    <form action="{{ route('report.save') }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger float-md-end">Forward</button>
-                                    </form>
-
-
-                                @elseif(session('report_submitted')==1)
+{{--                                @if($report && $report->statuses->first() && $report->statuses()->where('report_status.active', 1)->pluck('status_id')->contains(1))--}}
+{{--                                    <form action="{{ route('report.edit', ['id' => $report->id])  }}" method="post">--}}
+{{--                                        @csrf--}}
+{{--                                        <button type="submit" class="btn btn-danger float-md-end">Forward</button>--}}
+{{--                                    </form>--}}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    <a href="{{ route('section_report', [session('year'), session('month'), Auth::user()->section_id]) }}" class="btn btn-success">View Report</a><br/>
+                                    </div>
+                                @if(session('report_submitted')==1)
+                                        <div class="col-md-6" style="text-align: right">
                                     Report submitted at {{session('report_submitted_at')}}
-
-                                @else
-
-                                    Enter the previous report first.
+                                        </div>
                                 @endif
+                                    </div>
+{{--                                @elseif(($lastReport && $lastReport->month + 1 == session('month') && $lastReport->year == session('year')) || (!$lastReport && $todayMonth == session('month') && $todayYear == session('year')) )--}}
+{{--                                    <form action="{{ route('report.save') }}" method="post">--}}
+{{--                                        @csrf--}}
+{{--                                        <button type="submit" class="btn btn-danger float-md-end">Forward</button>--}}
+{{--                                    </form>--}}
+
+{{--                                --}}
+
+
+{{--                                @elseif(session('report_submitted')==1)--}}
+{{--                                    Report submitted at {{session('report_submitted_at')}}--}}
+
+{{--                                @else--}}
+
+{{--                                    Enter the previous report first.--}}
+{{--                                @endif--}}
                             </div>
                         </div>
                     </div>

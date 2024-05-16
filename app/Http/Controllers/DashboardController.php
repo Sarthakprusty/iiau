@@ -59,10 +59,10 @@ class DashboardController extends Controller
             ['deleted_at', null]
         ];
         $selectString = "count(*) as cnt, max(created_at) as last_updated";
-        $bills = DB::table('bills')
-            ->select(DB::raw($selectString))
-            ->where($whereClause)
-            ->get();
+//        $bills = DB::table('bills')
+//            ->select(DB::raw($selectString))
+//            ->where($whereClause)
+//            ->get();
         $works = DB::table('works')
             ->select(DB::raw($selectString))
             ->where($whereClause)
@@ -103,11 +103,11 @@ class DashboardController extends Controller
         }
 
         $data = [
-            'bills' => [
-                'desc' => 'Bills',
-                'cnt' => $bills[0]->cnt,
-                'last_updated' => date_format(date_create($bills[0]->last_updated), 'd/m/Y H:i')
-            ],
+//            'bills' => [
+//                'desc' => 'Bills',
+//                'cnt' => $bills[0]->cnt,
+//                'last_updated' => date_format(date_create($bills[0]->last_updated), 'd/m/Y H:i')
+//            ],
             'works' => [
                 'desc' => 'Work Report',
                 'cnt' => $works[0]->cnt,

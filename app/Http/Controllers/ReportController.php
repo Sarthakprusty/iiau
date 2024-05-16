@@ -153,7 +153,7 @@ class ReportController extends Controller
 
            ];
            $statuses=[];
-           if($user->role==2) {
+           if($user->role==2 || $user->role==1) {
                $report = Report::where('section_id', $user->section_id)->where('year', $year)->where('month', $month)->first();
                if ($report) {
                    $statuses = $report->statuses()
@@ -163,7 +163,7 @@ class ReportController extends Controller
                    foreach ($statuses as $status)
                        $status->user = User::findorfail($status->pivot->created_by);
                }
-               return view('reports.usReport',['data'=>$data,'section'=>$section, 'month'=>$monthName, 'report'=>$reports,'user'=>$user,'statuses'=>$statuses]);
+               return view('reports.usReport',['data'=>$data,'section'=>$section, 'month'=>$monthName, 'report'=>$reports,'user'=>$user,'statuses'=>$statuses,'reports'=>$report]);
            }
            else
            return view('reports.section',['data'=>$data,'section'=>$section, 'month'=>$monthName, 'report'=>$reports,'user'=>$user,]);

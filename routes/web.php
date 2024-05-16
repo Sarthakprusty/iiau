@@ -57,5 +57,5 @@ Route::delete('/references/{id}',[ReferenceController::class,'delete'])->middlew
 Route::view('/login', 'login')->name('login');
 Route::post('/login', [UserController::class,'authenticate']);
 Route::get('/logout', [UserController::class,'logout'])->name('logout');
-Route::get('/change_password',[UserController::class,'change_password'])->middleware('auth')->name('user.change_password');
-//Route::get('/User',[UserController::class,'User'])->middleware('auth')->name('user.User');
+Route::post('/change_password',[UserController::class,'change_password'])->middleware('auth')->name('user.change_password');
+Route::get('/User',[UserController::class,'User'])->middleware('auth')->name('user.User');

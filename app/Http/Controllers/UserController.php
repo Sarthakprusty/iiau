@@ -57,22 +57,32 @@ class UserController extends Controller
         $user = Auth::user();
         if($request->password && $request->password!==null){
             $user->password = Hash::make($request->password);
-            if ($user->role == 1)
-                return redirect()->intended('dashboard');
-            if ($user->role == 2)
-                return redirect()->intended('USDashboard');
-            if ($user->role == 3)
-                return redirect()->intended('ifa-dashboard');
-//            Auth::logout();
-//
-//            $request->session()->invalidate();
-//
-//            $request->session()->regenerateToken();
-//
-//            return redirect('/login');
+//            if ($user->role == 1)
+//                return redirect()->intended('dashboard');
+//            if ($user->role == 2)
+//                return redirect()->intended('USDashboard');
+//            if ($user->role == 3)
+//                return redirect()->intended('ifa-dashboard');
+
+            if($user->save()) {
+                Auth::logout();
+
+                $request->session()->invalidate();
+
+                $request->session()->regenerateToken();
+
+                return redirect('/login');
+            }
         }
         else
             return back()->withInput($request->input())->with('error','Password can not be empty');
+
+    }
+
+    public function User()
+    {
+        $user = Auth::user();
+        return view('change-password', ['user'=>$user]);
 
     }
 

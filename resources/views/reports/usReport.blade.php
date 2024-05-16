@@ -49,6 +49,8 @@
                                         <tr>
                                             <th>Sl.</th>
                                             <th>Name</th>
+                                            <th>Action</th>
+                                            <th>Action desc</th>
                                             <th>BF</th>
                                             <th>Recd.</th>
                                             <th>Disposed</th>
@@ -71,7 +73,9 @@
                                         @foreach ($data['works']['data'] as $work)
                                             <tr>
                                                 <td class="number">{{$loop->index + 1}}</td>
-                                                <td class="text" style="text-align: center">{{$work->desc}}</td>
+                                                <td class="text" >{{$work->desc}}</td>
+                                                <td class="text" >{{$work->action}}</td>
+                                                <td class="text" >{{$work->bill_receipt_desc}}</td>
                                                 <td class="number">{{$work->brought_forward}}</td>
                                                 <td class="number">{{$work->received}}</td>
                                                 <td class="number">{{$work->disposed}}</td>
@@ -93,7 +97,7 @@
                                         </tbody>
                                         <tfoot>
                                         <tr>
-                                            <th colspan="2">Total</th>
+                                            <th colspan="4">Total</th>
                                             <th>{{$t_brought_forward}}</th>
                                             <th>{{$t_received}}</th>
                                             <th>{{$t_disposed}}</th>
@@ -106,56 +110,56 @@
                                     </table>
                                 </div>
 
-                                <div class="report">
-                                    <h2>Bills Processed in {{$month}}</h2>
-                                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Sl.</th>
-                                            <th>Description</th>
-                                            <th>Received</th>
-                                            <th>Settled</th>
-                                            <th>Previous Due</th>
-                                            <th>Balance</th>
-                                            <th>Remarks<br/>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @php
-                                            $bill_rec = 0;
-                                            $bill_settled = 0;
-                                            $bill_prev_due = 0;
-                                            $bill_bal = 0;
-                                        @endphp
-                                        @foreach ($data['bills']['data'] as $bills)
-                                            <tr>
-                                                <td class="text" style="text-align: center">{{$bills->desc}}</td>
-                                                <td class="number">{{$loop->index + 1}}</td>
-                                                <td class="number">{{$bills->rec}}</td>
-                                                <td class="number">{{$bills->settled}}</td>
-                                                <td class="number">{{$bills->prev_due}}</td>
-                                                <td class="number">{{$bills->bal}}</td>
-                                                <td class="text" style="text-align: center">{{$bills->remarks}}</td>
-                                            </tr>
-                                            @php
-                                                $bill_rec += $bills->rec;
-                                                $bill_settled += $bills->settled;
-                                                $bill_prev_due += $bills->prev_due;
-                                                $bill_bal += $bills->bal;
-                                            @endphp
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th colspan="2">Total</th>
-                                            <th>{{$bill_rec}}</th>
-                                            <th>{{$bill_settled}}</th>
-                                            <th>{{$bill_prev_due}}</th>
-                                            <th>{{$bill_bal}}</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+{{--                                <div class="report">--}}
+{{--                                    <h2>Bills Processed in {{$month}}</h2>--}}
+{{--                                    <table style="width: 100%; border-collapse: collapse; border: 1px solid;" class="table">--}}
+{{--                                        <thead>--}}
+{{--                                        <tr>--}}
+{{--                                            <th>Sl.</th>--}}
+{{--                                            <th>Description</th>--}}
+{{--                                            <th>Received</th>--}}
+{{--                                            <th>Settled</th>--}}
+{{--                                            <th>Previous Due</th>--}}
+{{--                                            <th>Balance</th>--}}
+{{--                                            <th>Remarks<br/>--}}
+{{--                                        </tr>--}}
+{{--                                        </thead>--}}
+{{--                                        <tbody>--}}
+{{--                                        @php--}}
+{{--                                            $bill_rec = 0;--}}
+{{--                                            $bill_settled = 0;--}}
+{{--                                            $bill_prev_due = 0;--}}
+{{--                                            $bill_bal = 0;--}}
+{{--                                        @endphp--}}
+{{--                                        @foreach ($data['bills']['data'] as $bills)--}}
+{{--                                            <tr>--}}
+{{--                                                <td class="text" >{{$bills->desc}}</td>--}}
+{{--                                                <td class="number">{{$loop->index + 1}}</td>--}}
+{{--                                                <td class="number">{{$bills->rec}}</td>--}}
+{{--                                                <td class="number">{{$bills->settled}}</td>--}}
+{{--                                                <td class="number">{{$bills->prev_due}}</td>--}}
+{{--                                                <td class="number">{{$bills->bal}}</td>--}}
+{{--                                                <td class="text" >{{$bills->remarks}}</td>--}}
+{{--                                            </tr>--}}
+{{--                                            @php--}}
+{{--                                                $bill_rec += $bills->rec;--}}
+{{--                                                $bill_settled += $bills->settled;--}}
+{{--                                                $bill_prev_due += $bills->prev_due;--}}
+{{--                                                $bill_bal += $bills->bal;--}}
+{{--                                            @endphp--}}
+{{--                                        @endforeach--}}
+{{--                                        </tbody>--}}
+{{--                                        <tfoot>--}}
+{{--                                        <tr>--}}
+{{--                                            <th colspan="2">Total</th>--}}
+{{--                                            <th>{{$bill_rec}}</th>--}}
+{{--                                            <th>{{$bill_settled}}</th>--}}
+{{--                                            <th>{{$bill_prev_due}}</th>--}}
+{{--                                            <th>{{$bill_bal}}</th>--}}
+{{--                                        </tr>--}}
+{{--                                        </tfoot>--}}
+{{--                                    </table>--}}
+{{--                                </div>--}}
 
                                 <div class="report">
                                     <h2>Promotions, Retirements etc in {{$month}}</h2>
@@ -179,11 +183,11 @@
                                         @foreach ($data['promotions']['data'] as $promotions)
                                             <tr>
                                                 <td class="number">{{$loop->index + 1}}</td>
-                                                <td class="text" style="text-align: center">{{$promotions->desc}}</td>
+                                                <td class="text" >{{$promotions->desc}}</td>
                                                 <td class="number">{{$promotions->due}}</td>
                                                 <td class="number">{{$promotions->settled}}</td>
                                                 <td class="number">{{$promotions->variation}}</td>
-                                                <td class="text" style="text-align: center">{{$promotions->remarks}}</td>
+                                                <td class="text" >{{$promotions->remarks}}</td>
                                             </tr>
                                             @php
                                                 $t_due += $promotions->due;
@@ -221,11 +225,11 @@
                                         @foreach ($data['references']['data'] as $references)
                                             <tr>
                                                 <td class="number">{{$loop->index + 1}}</td>
-                                                <td class="text" style="text-align: center">{{$references->desc}}</td>
+                                                <td class="text" >{{$references->desc}}</td>
                                                 <td class="number">{{ date_format(date_create($references->date_of_comm), 'd/m/Y') }}</td>
                                                 <td class="number">{{ date_format(date_create($references->date_of_reply), 'd/m/Y') }}</td>
                                                 <td class="number">{{ date_format(date_create($references->date_of_action), 'd/m/Y') }}</td>
-                                                <td class="text" style="text-align: center">{{$references->remarks}}</td>
+                                                <td class="text" >{{$references->remarks}}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -247,8 +251,8 @@
                                         @foreach ($data['uniforms']['data'] as $uniform)
                                             <tr>
                                                 <td class="number">{{$loop->index + 1}}</td>
-                                                <td class="text" style="text-align: center">{{$uniform->description}}</td>
-                                                <td class="text" style="text-align: center">{{$uniform->status}}</td>
+                                                <td class="text" >{{$uniform->description}}</td>
+                                                <td class="text" >{{$uniform->status}}</td>
                                                 <td class="number">{{ date_format(date_create($uniform->cut_off_date), 'd/m/Y')}}</td>
                                             </tr>
                                         @endforeach
@@ -271,9 +275,9 @@
                                         @foreach ($data['pending15']['data'] as $pending15)
                                             <tr>
                                                 <td class="number">{{$loop->index + 1}}</td>
-                                                <td class="text" style="text-align: center">{{$pending15->desc}}</td>
-                                                <td class="text" style="text-align: center">{{$pending15->reason}}</td>
-                                                <td class="text" style="text-align: center">{{$pending15->action}}</td>
+                                                <td class="text" >{{$pending15->desc}}</td>
+                                                <td class="text" >{{$pending15->reason}}</td>
+                                                <td class="text" >{{$pending15->action}}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -295,8 +299,8 @@
                                         @foreach ($data['others']['data'] as $o)
                                             <tr>
                                                 <td class="number">{{$loop->index + 1}}</td>
-                                                <td class="text" style="text-align: center">{{$o->title}}</td>
-                                                <td class="text" style="text-align: center">{{$o->desc}}</td>
+                                                <td class="text" >{{$o->title}}</td>
+                                                <td class="text" >{{$o->desc}}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

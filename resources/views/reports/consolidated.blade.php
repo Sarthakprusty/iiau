@@ -72,54 +72,54 @@
         </table>
 
 
-        <h2>Bills processed in {{$month}}</h2>
-        <table style="width: 100%; border-collapse: collapse; border: 1px solid;">
-            <thead>
-            <tr>
-                <th>Sl.</th>
-                <th>Name</th>
-                <th>Received</th>
-                <th>Settled</th>
-                <th>Previous Due</th>
-                <th>Balance</th>
-                {{--                <th>Remarks<br/>--}}
-            </tr>
-            </thead>
-            <tbody>
-            @php
-                $bill_rec = 0;
-                $bill_settled = 0;
-                $bill_prev_due = 0;
-                $bill_bal = 0;
-            @endphp
-            @foreach ($data['bills']['data'] as $bills)
-                <tr>
-                    <td class="number">{{$loop->index + 1}}</td>
-                    <td class="text" style="text-align: center">{{$bills->section_name}}</td>
-                    <td class="number">{{$bills->rec}}</td>
-                    <td class="number">{{$bills->settled}}</td>
-                    <td class="number">{{$bills->prev_due}}</td>
-                    <td class="number">{{$bills->bal}}</td>
-                    {{--                    <td class="text" style="text-align: center">{{$bills->remarks}}</td>--}}
-                </tr>
-                @php
-                    $bill_rec += $bills->rec;
-                    $bill_settled += $bills->settled;
-                    $bill_prev_due += $bills->prev_due;
-                    $bill_bal += $bills->bal;
-                @endphp
-            @endforeach
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="2">Total</th>
-                <th>{{$bill_rec}}</th>
-                <th>{{$bill_settled}}</th>
-                <th>{{$bill_prev_due}}</th>
-                <th>{{$bill_bal}}</th>
-            </tr>
-            </tfoot>
-        </table>
+{{--        <h2>Bills processed in {{$month}}</h2>--}}
+{{--        <table style="width: 100%; border-collapse: collapse; border: 1px solid;">--}}
+{{--            <thead>--}}
+{{--            <tr>--}}
+{{--                <th>Sl.</th>--}}
+{{--                <th>Name</th>--}}
+{{--                <th>Received</th>--}}
+{{--                <th>Settled</th>--}}
+{{--                <th>Previous Due</th>--}}
+{{--                <th>Balance</th>--}}
+{{--                --}}{{--                <th>Remarks<br/>--}}
+{{--            </tr>--}}
+{{--            </thead>--}}
+{{--            <tbody>--}}
+{{--            @php--}}
+{{--                $bill_rec = 0;--}}
+{{--                $bill_settled = 0;--}}
+{{--                $bill_prev_due = 0;--}}
+{{--                $bill_bal = 0;--}}
+{{--            @endphp--}}
+{{--            @foreach ($data['bills']['data'] as $bills)--}}
+{{--                <tr>--}}
+{{--                    <td class="number">{{$loop->index + 1}}</td>--}}
+{{--                    <td class="text" style="text-align: center">{{$bills->section_name}}</td>--}}
+{{--                    <td class="number">{{$bills->rec}}</td>--}}
+{{--                    <td class="number">{{$bills->settled}}</td>--}}
+{{--                    <td class="number">{{$bills->prev_due}}</td>--}}
+{{--                    <td class="number">{{$bills->bal}}</td>--}}
+{{--                    --}}{{--                    <td class="text" style="text-align: center">{{$bills->remarks}}</td>--}}
+{{--                </tr>--}}
+{{--                @php--}}
+{{--                    $bill_rec += $bills->rec;--}}
+{{--                    $bill_settled += $bills->settled;--}}
+{{--                    $bill_prev_due += $bills->prev_due;--}}
+{{--                    $bill_bal += $bills->bal;--}}
+{{--                @endphp--}}
+{{--            @endforeach--}}
+{{--            </tbody>--}}
+{{--            <tfoot>--}}
+{{--            <tr>--}}
+{{--                <th colspan="2">Total</th>--}}
+{{--                <th>{{$bill_rec}}</th>--}}
+{{--                <th>{{$bill_settled}}</th>--}}
+{{--                <th>{{$bill_prev_due}}</th>--}}
+{{--                <th>{{$bill_bal}}</th>--}}
+{{--            </tr>--}}
+{{--            </tfoot>--}}
+{{--        </table>--}}
 
 
         <h2>Promotions, Retirements etc in {{$month}}</h2>

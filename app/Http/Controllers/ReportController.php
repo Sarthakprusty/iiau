@@ -99,7 +99,7 @@ class ReportController extends Controller
                ['month',$month],
                ['year',$year]
            ];
-           $bills = Bill::where($whereClause)->get();
+//           $bills = Bill::where($whereClause)->get();
            $works = Work::where($whereClause)->get();
            $promotions = Promotion::where($whereClause)->get();
            $references = Reference::where($whereClause)->get();
@@ -115,11 +115,11 @@ class ReportController extends Controller
 //           }
 
            $data = [
-               'bills'=>[
-                   'desc'=>'Bills',
-                   'data'=>$bills,
-//                   'last_updated'=>date_format(date_create($bills[0]->last_updated), 'd/m/Y H:i')
-               ],
+//               'bills'=>[
+//                   'desc'=>'Bills',
+//                   'data'=>$bills,
+////                   'last_updated'=>date_format(date_create($bills[0]->last_updated), 'd/m/Y H:i')
+//               ],
                'works'=>[
                    'desc'=>'Work Report',
                    'data'=>$works,
@@ -237,34 +237,34 @@ class ReportController extends Controller
                ->groupBy('s.section_name')
                ->get();
 
-           $bills = DB::table('sections as s')
-               ->join('bills as w', function ($join) {
-                   $join->on('s.id', '=', 'w.section_id')
-                       ->whereNull('w.deleted_at');
-               })
-               ->join('reports as r', function ($join) use ($month, $year) {
-                   $join->on('s.id', '=', 'r.section_id')
-                       ->where('r.month', '=', $month)
-                       ->where('r.year', '=', $year)
-                       ->whereNull('r.deleted_at');
-               })
-               ->join('report_status as rs', function ($join) {
-                   $join->on('r.id', '=', 'rs.report_id')
-                       ->where('rs.active', 1)
-                       ->where('rs.status_id', 3);
-               })
-               ->select(
-                   's.section_name',
-                   DB::raw('SUM(w.rec) as rec'),
-                   DB::raw('SUM(w.settled) as settled'),
-                   DB::raw('SUM(w.prev_due) as prev_due'),
-                   DB::raw('SUM(w.bal) as bal')
-               )
-               ->where('w.month', '=', $month)
-               ->where('w.year', '=', $year)
-               ->whereNull('s.deleted_at')
-               ->groupBy('s.section_name')
-               ->get();
+//           $bills = DB::table('sections as s')
+//               ->join('bills as w', function ($join) {
+//                   $join->on('s.id', '=', 'w.section_id')
+//                       ->whereNull('w.deleted_at');
+//               })
+//               ->join('reports as r', function ($join) use ($month, $year) {
+//                   $join->on('s.id', '=', 'r.section_id')
+//                       ->where('r.month', '=', $month)
+//                       ->where('r.year', '=', $year)
+//                       ->whereNull('r.deleted_at');
+//               })
+//               ->join('report_status as rs', function ($join) {
+//                   $join->on('r.id', '=', 'rs.report_id')
+//                       ->where('rs.active', 1)
+//                       ->where('rs.status_id', 3);
+//               })
+//               ->select(
+//                   's.section_name',
+//                   DB::raw('SUM(w.rec) as rec'),
+//                   DB::raw('SUM(w.settled) as settled'),
+//                   DB::raw('SUM(w.prev_due) as prev_due'),
+//                   DB::raw('SUM(w.bal) as bal')
+//               )
+//               ->where('w.month', '=', $month)
+//               ->where('w.year', '=', $year)
+//               ->whereNull('s.deleted_at')
+//               ->groupBy('s.section_name')
+//               ->get();
 
 
 
@@ -366,11 +366,11 @@ class ReportController extends Controller
                    'desc'=>'Work Report',
                    'data'=>$works,
                ],
-               'bills'=>[
-                   'desc'=>'Bills',
-                   'data'=>$bills,
-//                   'last_updated'=>date_format(date_create($bills[0]->last_updated),'d/m/Y H:i')
-               ],
+//               'bills'=>[
+//                   'desc'=>'Bills',
+//                   'data'=>$bills,
+////                   'last_updated'=>date_format(date_create($bills[0]->last_updated),'d/m/Y H:i')
+//               ],
                'promotions'=>[
                    'desc'=>'Promotions, Retirement etc',
                    'data'=>$promotions,

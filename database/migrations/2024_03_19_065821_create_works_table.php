@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('month')->nullable(false);
             $table->integer('year')->nullable(false);
             $table->string('desc')->nullable(true);
+            $table->string('action')->nullable(true);
+            $table->string('bill_receipt_desc')->nullable(true);
             $table->integer('brought_forward')->nullable(false)->default(0);
             $table->integer('received')->nullable(false)->default(0);
             $table->integer('disposed')->nullable(false)->default(0);

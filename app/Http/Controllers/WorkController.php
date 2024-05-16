@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
+use App\Models\Receipt;
 use App\Models\Work;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +20,9 @@ class WorkController extends Controller
                     ->where('year',$request->session()->get('year')?$request->session()->get('year'):date('Y'))
                     ->orderBy('created_at')
                     ->get();
-        return view('works', ['user'=>$user,'works'=>$works]);
+        $bills= Bill::all();
+        $receipts= Receipt::all();
+        return view('works', ['user'=>$user,'works'=>$works,'bills'=>$bills,'receipts'=>$receipts]);
     }
 
     function saveWork(Request $request): RedirectResponse{
@@ -30,6 +34,8 @@ class WorkController extends Controller
             $work->month = $request->session()->get('month')?$request->session()->get('month'):date('m');
             $work->year = $request->session()->get('year')?$request->session()->get('year'):date('Y');
             $work->desc = $r['desc'];
+            $work->action = $r['action'];
+            $work->bill_receipt_desc = $r['bill_receipt_desc'];
             $work->brought_forward = $r['bf']?$r['bf']:0;
             $work->received = $r['recd']?$r['recd']:0;
             $work->disposed = $r['disp']?$r['disp']:0;

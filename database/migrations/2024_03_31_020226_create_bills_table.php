@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->integer('section_id')->nullable(false);
-            $table->integer('month')->nullable(false);
-            $table->integer('year')->nullable(false);
+//            $table->integer('section_id')->nullable(false);
+//            $table->integer('month')->nullable(false);
+//            $table->integer('year')->nullable(false);
             $table->text('desc')->nullable(true);
-            $table->integer('rec')->nullable(false)->default(0);
-            $table->integer('settled')->nullable(false)->default(0);
-            $table->integer('prev_due')->nullable(false)->default(0);
-            $table->integer('bal')->nullable(false)->default(0);
-            $table->text('remarks')->nullable(true);
-            $table->integer('created_by')->nullable(true);
+//            $table->integer('rec')->nullable(false)->default(0);
+//            $table->integer('settled')->nullable(false)->default(0);
+//            $table->integer('prev_due')->nullable(false)->default(0);
+//            $table->integer('bal')->nullable(false)->default(0);
+//            $table->text('remarks')->nullable(true);
+//            $table->integer('created_by')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });

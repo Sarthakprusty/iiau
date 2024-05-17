@@ -17,17 +17,17 @@
                 <div class="row" style="margin-top: 10px">
                     @if (isset($statuses) && !empty($statuses) && $statuses->isNotEmpty() )
                         <div class="card text-white bg-info mb-3">
-                        <div class="row" >
-                            <div class="card-header">Note:</div>
-                            <div class="card-body">
-                                @foreach ($statuses as $status)
-                                    <p class="card-text">
-                                        {{ $status->user ? $status->user->name : 'N/A' }} - {{ $status->pivot->remark }}
-                                    </p>
-                                @endforeach
+                            <div class="row" >
+                                <div class="card-header">Note:</div>
+                                <div class="card-body">
+                                    @foreach ($statuses as $status)
+                                        <p class="card-text">
+                                            {{ $status->user ? $status->user->name : 'N/A' }} - {{ $status->pivot->remark }}
+                                        </p>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endif
                 </div>
 

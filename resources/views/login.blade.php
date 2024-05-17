@@ -9,7 +9,7 @@
 
     <div class="maincontainer d-flex align-items-center justify-content-center ">
         <div class="row">
-            <div class=" sideimage shadow" style="background-image: url('../../storage/rb.jpg');background-size: cover; background-position: center;background-repeat: no-repeat;width: 650px ;">
+            <div class=" sideimage shadow" style="background-image: url('{{ asset('storage/rb.jpg') }}');background-size: cover; background-position: center;background-repeat: no-repeat;width: 650px ;">
             </div>
             <div class=" monkeylogin" style="background: linear-gradient(lavender,white)">
                 <div class="animcon" id="animcon">

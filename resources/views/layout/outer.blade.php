@@ -66,7 +66,7 @@
             height: 160px;
             width: 160px;
             border-radius: 50%;
-            background-image: url('../../../storage/rbnight.jpg');
+            background-image: url('{{ asset('storage/rbnight.jpg') }}');
             background-size: cover;
         //background-size: 90% 85%;
             background-repeat: no-repeat;

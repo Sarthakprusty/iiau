@@ -17,7 +17,7 @@ class SectionSeeder extends Seeder
             'section_name' => 'IIAU'
         ]);
         DB::table('sections')->insert([
-            'section_name' => 'Admin'
+            'section_name' => 'Administration'
         ]);
         DB::table('sections')->insert([
             'section_name' => 'GA'
@@ -50,7 +50,7 @@ class SectionSeeder extends Seeder
             'section_name' => 'Bills(Admn)'
         ]);
         DB::table('sections')->insert([
-            'section_name' => 'Bills(eEtt)'
+            'section_name' => 'Bills(Estt)'
         ]);
         DB::table('sections')->insert([
             'section_name' => 'PAO Unit'
@@ -93,6 +93,15 @@ class SectionSeeder extends Seeder
         ]);
         DB::table('sections')->insert([
             'section_name' => 'PEC Clinic'
+        ]);
+        DB::table('sections')->insert([
+            'section_name' => 'Museum'
+        ]);
+        DB::table('sections')->insert([
+            'section_name' => 'VMC'
+        ]);
+        DB::table('sections')->insert([
+            'section_name' => 'Invitation'
         ]);
     }
 }

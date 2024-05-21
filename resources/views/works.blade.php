@@ -145,6 +145,10 @@
             data.forEach(function(item) {
                 var option = document.createElement("option");
                 option.text = item.desc; // Assuming 'desc' is the column containing the description
+                // billReceiptDescDropdown.add(option);
+                if (item.desc === oldSelectedValue) { // Corrected from item.text
+                    option.selected = true; // Select the option if its value matches the old selected value
+                }
                 billReceiptDescDropdown.add(option);
             });
         }
@@ -152,12 +156,13 @@
         // Event listener for change in the action dropdown
         document.getElementById("action").addEventListener("change", function() {
             var action = this.value;
-            populateBillReceiptDescDropdown(action); // Populate bill_receipt_desc dropdown based on selected action
+            populateBillReceiptDescDropdown(action,''); // Populate bill_receipt_desc dropdown based on selected action
         });
 
         // Initial population of bill_receipt_desc dropdown based on the initial value of the action dropdown
         var initialAction = document.getElementById("action").value;
-        populateBillReceiptDescDropdown(initialAction);
+        var oldSelectedValue = '{{ old('record.0.bill_receipt_desc') }}'; // Get the old value from PHP
+        populateBillReceiptDescDropdown(initialAction, oldSelectedValue);
 
     </script>
 </div>

@@ -52,7 +52,7 @@ class CorrespondenceController extends Controller
         $user = Auth::user();
         if($record->created_by == $user->id){
             $record->delete();
-            return back()->with('success','Correspondence deleted successfully.');
+            return back()->with('success','Record deleted successfully.');
         }
         return back()->with('error','Unauthorised Access.');
     }

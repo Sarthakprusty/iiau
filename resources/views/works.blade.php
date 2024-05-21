@@ -44,11 +44,12 @@
                     <td>
                         <div class="form-group">
                             <select id="action" name="record[0][action]" class="form-control" required>
-                                <option value="bills" selected>Bills</option>
-                                <option value="receipts">Receipts</option>
+                                <option value="bills"{{ old('record.0.action') == 'bills' ? ' selected' : '' }}>Bills</option>
+                                <option value="receipts"{{ old('record.0.action') == 'receipts' ? ' selected' : '' }}>Receipts</option>
                             </select>
                         </div>
                     </td>
+
                     <td>
                         <div class="form-group">
                             <select id="bill_receipt_desc" name="record[0][bill_receipt_desc]" class="form-control" required>
@@ -56,6 +57,7 @@
                             </select>
                         </div>
                     </td>
+
                     <td><input class="form-control" type="number" name="record[0][bf]" value="{{ old('record.0.bf') }}"></td>
                     <td><input class="form-control" type="number" name="record[0][recd]" value="{{ old('record.0.recd') }}"></td>
                     <td><input class="form-control" type="number" name="record[0][disp]" value="{{ old('record.0.disp') }}"></td>
@@ -126,12 +128,10 @@
         </table>
     </div>
     <script>
-        document.getElementById("action").addEventListener("change", function() {
-            var action = this.value;
+        // Function to populate bill_receipt_desc dropdown based on the selected action
+        function populateBillReceiptDescDropdown(action) {
             var billReceiptDescDropdown = document.getElementById("bill_receipt_desc");
-
-            // Clear existing options
-            billReceiptDescDropdown.innerHTML = "";
+            billReceiptDescDropdown.innerHTML = ""; // Clear existing options
 
             // Populate options based on selection
             var data;
@@ -144,10 +144,21 @@
             // Populate options
             data.forEach(function(item) {
                 var option = document.createElement("option");
-                option.text = item.desc; // Assuming 'desc_column' is the column containing the description
+                option.text = item.desc; // Assuming 'desc' is the column containing the description
                 billReceiptDescDropdown.add(option);
             });
+        }
+
+        // Event listener for change in the action dropdown
+        document.getElementById("action").addEventListener("change", function() {
+            var action = this.value;
+            populateBillReceiptDescDropdown(action); // Populate bill_receipt_desc dropdown based on selected action
         });
+
+        // Initial population of bill_receipt_desc dropdown based on the initial value of the action dropdown
+        var initialAction = document.getElementById("action").value;
+        populateBillReceiptDescDropdown(initialAction);
+
     </script>
 </div>
 @endsection

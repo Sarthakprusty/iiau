@@ -48,6 +48,12 @@
     <div class="container">
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link text-white text-bold fontd" href='{{route('dashboard')}}'>Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white text-bold ">|</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-bold text-white" href='{{route('dashboard')}}'>
 
                     Welcome, &nbsp;{{$user->name}}</a>
